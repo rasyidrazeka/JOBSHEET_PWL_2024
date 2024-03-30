@@ -13,6 +13,7 @@
             <th>ID</th>
             <th>Kode Kategori</th>
             <th>Nama Kategori</th>
+            
         </tr>
         @foreach ($data as $d)
         <tr>
