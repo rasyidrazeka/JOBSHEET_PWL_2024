@@ -22,7 +22,7 @@ class KategoriDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            /* ->addColumn('action', 'kategori.action') */
+            ->addColumn('action', 'kategori.action')
             ->setRowId('id');
     }
     /**
@@ -41,7 +41,7 @@ class KategoriDataTable extends DataTable
             ->setTableId('kategori-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
+            ->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
@@ -68,6 +68,7 @@ class KategoriDataTable extends DataTable
             Column::make('kategori_id'),
             Column::make('kategori_kode'),
             Column::make('kategori_nama'),
+            Column::make('action'),
             // Column::make('created_at'),
             // Column::make('updated_at'),
         ];
