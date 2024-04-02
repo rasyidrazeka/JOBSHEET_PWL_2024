@@ -29,6 +29,16 @@ Route::get('/sell', [SellController::class, 'sell']);
 
 Route::get('/user', [UserController::class, 'index']);
 
+Route::get('/user/tambah', [UserController::class, 'tambah']);
+
+Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
+
+Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
+
+Route::post('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
+
+Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
+
 Route::prefix('product')->group(function () {
     Route::get('/category/food-beverage', [ProductController::class, 'foodBaverage']);
     Route::get('/category/beauty-health', [ProductController::class, 'beautyHealth']);
@@ -40,12 +50,8 @@ Route::get('/level', [LevelController::class, 'index']);
 
 Route::get('/kategori', [KategoriController::class, 'index']);
 
-Route::get('/user/tambah', [UserController::class, 'tambah']);
+Route::get('/kategori/create', [KategoriController::class, 'create']);
 
-Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
+Route::get('/kategori/edit', [KategoriController::class, 'edit']);
 
-Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
-
-Route::post('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
-
-Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
+Route::post('/kategori', [KategoriController::class, 'store']);
