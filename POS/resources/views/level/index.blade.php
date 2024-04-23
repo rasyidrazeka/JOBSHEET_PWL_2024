@@ -6,12 +6,12 @@
             <div class="card-tools"> <a class="btn btn-sm btn-primary mt-1" href="{{ url('level/create') }}">Tambah</a> </div>
         </div>
         <div class="card-body">
-            {{-- @if (session('success'))
+            @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif --}}
+            @endif
             {{-- <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
@@ -33,7 +33,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Kode</th>
-                        <th>Nama Level</th>
+                        <th>Nama</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

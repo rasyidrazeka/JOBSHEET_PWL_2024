@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\StokController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +49,39 @@ Route::group(['prefix'=>'level'], function(){
     Route::delete('/{id}', [LevelController::class, 'destroy']);
 });
 
+Route::group(['prefix' => 'kategori'], function(){
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::post('/list', [KategoriController::class, 'list']);
+    Route::get('/create', [KategoriController::class, 'create']);
+    Route::post('/', [KategoriController::class, 'store']);
+    Route::get('/{id}', [KategoriController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriController::class, 'edit']);
+    Route::put('/{id}', [KategoriController::class, 'update']);
+    Route::delete('/{id}', [KategoriController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'barang'], function(){
+    Route::get('/', [BarangController::class, 'index']);
+    Route::post('/list', [BarangController::class, 'list']);
+    Route::get('/create', [BarangController::class, 'create']);
+    Route::post('/', [BarangController::class, 'store']);
+    Route::get('/{id}', [BarangController::class, 'show']);
+    Route::get('/{id}/edit', [BarangController::class, 'edit']);
+    Route::put('/{id}', [BarangController::class, 'update']);
+    Route::delete('/{id}', [BarangController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'stok'], function(){
+    Route::get('/', [StokController::class, 'index']);
+    Route::post('/list', [StokController::class, 'list']);
+    Route::get('/create', [StokController::class, 'create']);
+    Route::post('/', [StokController::class, 'store']);
+    Route::get('/{id}', [StokController::class, 'show']);
+    Route::get('/{id}/edit', [StokController::class, 'edit']);
+    Route::put('/{id}', [StokController::class, 'update']);
+    Route::delete('/{id}', [StokController::class, 'destroy']);
+});
+
 // Route::get('/user', [UserController::class, 'index']);
 
 // Route::get('/user/tambah', [UserController::class, 'tambah']);
@@ -59,25 +94,25 @@ Route::group(['prefix'=>'level'], function(){
 
 // Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
 
-Route::prefix('product')->group(function () {
-    Route::get('/category/food-beverage', [ProductController::class, 'foodBaverage']);
-    Route::get('/category/beauty-health', [ProductController::class, 'beautyHealth']);
-    Route::get('/category/home-care', [ProductController::class, 'homeCare']);
-    Route::get('/category/baby-kid', [ProductController::class, 'babyKid']);
-});
+// Route::prefix('product')->group(function () {
+//     Route::get('/category/food-beverage', [ProductController::class, 'foodBaverage']);
+//     Route::get('/category/beauty-health', [ProductController::class, 'beautyHealth']);
+//     Route::get('/category/home-care', [ProductController::class, 'homeCare']);
+//     Route::get('/category/baby-kid', [ProductController::class, 'babyKid']);
+// });
 
 // Route::get('/level', [LevelController::class, 'index']);
 
-Route::get('/kategori', [KategoriController::class, 'index']);
+// Route::get('/kategori', [KategoriController::class, 'index']);
 
-Route::get('/kategori/create', [KategoriController::class, 'create']);
+// Route::get('/kategori/create', [KategoriController::class, 'create']);
 
-Route::get('/kategori/edit', [KategoriController::class, 'edit']);
+// Route::get('/kategori/edit', [KategoriController::class, 'edit']);
 
-Route::post('/kategori', [KategoriController::class, 'store']);
+// Route::post('/kategori', [KategoriController::class, 'store']);
 
-Route::get('/kategori/ubah/{id}', [KategoriController::class, 'ubah']);
+// Route::get('/kategori/ubah/{id}', [KategoriController::class, 'ubah']);
 
-Route::post('/kategori/ubah_simpan/{id}', [KategoriController::class, 'ubah_simpan']);
+// Route::post('/kategori/ubah_simpan/{id}', [KategoriController::class, 'ubah_simpan']);
 
-Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus']);
+// Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus']);

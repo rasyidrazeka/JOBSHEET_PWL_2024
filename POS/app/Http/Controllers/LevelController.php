@@ -97,4 +97,52 @@ class LevelController extends Controller
 
         return view('level.show', ['breadcrumb' => $breadcrumb, 'page' => $page ,'level' => $level, 'activeMenu' => $activeMenu]);
     }
+
+    public function edit(string $id)
+    {
+        $level = LevelModel::find($id);
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Level User',
+            'list' => ['Home', 'Level', 'Edit']
+        ];
+
+        $page = (object)[
+            'title' => 'Edit level user',
+        ];
+
+        $activeMenu = 'level';
+
+        return view('level.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'level_kode' => 'required|string|min:3|unique:m_level,level_kode,'.$id.',level_id',
+            'level_nama' => 'required|string|max:100',
+        ]);
+
+        LevelModel::find($id)->update([
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request->level_nama,
+        ]);
+
+        return redirect('/level')->with('success', 'Data level user berhasil diubah!');
+    }
+
+    public function destroy(string $id)
+    {
+        $check = LevelModel::find($id);
+        if (!$check){
+            return redirect('/level')->with('error', "Data level user tidak ditemukan!");
+        }
+
+        try{
+            LevelModel::destroy($id);
+            return redirect('/level')->with('success', 'Data level user berhasil dihapus!');
+        }catch(\Illuminate\Database\QueryException $e){
+            return redirect('/level')->with('error', 'Data level user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini!');
+        }
+    }
 }

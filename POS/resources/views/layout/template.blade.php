@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Blank Page</title>
+    <title>{{ config('app.name', 'PWL Laravel Starter Code') }}</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Untuk mengirimkan token Laravel CSRF pada setiap request ajax -->
@@ -27,7 +27,10 @@
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
+
+        <!-- Navbar -->
         @include('layout.header')
+        <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -42,35 +45,21 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+
+            <!-- Content Header (Page header) -->
             @include('layout.breadcrumb')
 
             <!-- Main content -->
             <section class="content">
-
-                <!-- Default box -->
                 @yield('content')
-                <div class="card-body">
-                    Start creating your amazing application!
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Footer
-                </div>
-                <!-- /.card-footer-->
+            </section>
+            <!-- /.content -->
+
         </div>
-        <!-- /.card -->
+        <!-- /.content-wrapper -->
 
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+        @include('layout.footer')
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-    @include('layout.footer')
     </div>
     <!-- ./wrapper -->
 
@@ -94,14 +83,13 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <script>
-        // Untuk mengirimkan token Laravel CSRF pada setiap request ajax
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        })
+        });
     </script>
-    @stack('js') <!-- Digunakan untuk memanggil custom js dari perintah push('js') pada masing-masing view -->
+    @stack('js')
 </body>
 
 </html>

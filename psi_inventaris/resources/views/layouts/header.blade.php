@@ -1,5 +1,5 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="height: 74.49px">
+    {{-- <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -10,11 +10,20 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
         </li>
-    </ul>
+    </ul> --}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
+        <li class="nav-item me-3">
+            <div class="d-flex flex-row align-items-center justify-content-center">
+                <div class="d-flex flex-column">
+                    <div style="font-size: 15px">Sekretaris Jurusan</div>
+                    <div style="font-size: 15px">User</div>
+                </div>
+                <i class="nav-icon fa-solid fa-circle-user p-3" style="font-size: 40px"></i>
+            </div>
+        </li>
+        {{-- <!-- Navbar Search -->
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                 <i class="fas fa-search"></i>
@@ -134,6 +143,6 @@
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>

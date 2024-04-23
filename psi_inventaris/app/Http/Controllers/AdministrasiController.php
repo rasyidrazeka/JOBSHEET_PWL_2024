@@ -25,7 +25,7 @@ class AdministrasiController extends Controller
 
     public function list(Request $request)
     {
-        $users = AdministrasiModel::select('user_id', 'username', 'nama', 'level_id') ->with('level'); 
+        $users = AdministrasiModel::select('user_id', 'username', 'nama', 'level_id')->with('level'); 
         if($request->level_id) {
             $users->where('level_id', $request->level_id);
         }

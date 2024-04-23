@@ -34,12 +34,10 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ url('/dashboard') }}" class="brand-link">
-                <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">PSI - Starter Code</span>
+                <img class="d-flex justify-content-center" src="{{ asset('img/logo transparan.png') }}" style="width: 235px; height: auto">
             </a>
 
             <!-- Sidebar -->
@@ -88,7 +86,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <script>
-        $ajaxSetup({
+        $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
