@@ -18,16 +18,23 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ url('/barang') }}"
+                    class="nav-link {{ $activeMenu == 'barang' ? 'active' : '' }}">
+                    <i class="nav-icon fa-solid fa-warehouse"></i>
+                    <p>Data Barang</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('/transaksiMasuk') }}"
                     class="nav-link {{ $activeMenu == 'transaksiMasuk' ? 'active' : '' }}">
-                    <i class="nav-icon fa-solid fa-circle-arrow-right"></i>
+                    <i class="nav-icon fa-solid fa-circle-down"></i>
                     <p>Transaksi Masuk</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/transaksiKeluar') }}"
                     class="nav-link {{ $activeMenu == 'transaksiKeluar' ? 'active' : '' }}">
-                    <i class="nav-icon fa-solid fa-circle-arrow-left"></i>
+                    <i class="nav-icon fa-solid fa-circle-up"></i>
                     <p>Transaksi keluar</p>
                 </a>
             </li>

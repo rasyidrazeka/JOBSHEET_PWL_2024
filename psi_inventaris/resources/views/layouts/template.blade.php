@@ -37,7 +37,8 @@
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ url('/dashboard') }}" class="brand-link">
-                <img class="d-flex justify-content-center" src="{{ asset('img/logo transparan.png') }}" style="width: 235px; height: auto">
+                <img class="d-flex justify-content-center" src="{{ asset('img/logo transparan.png') }}"
+                    style="width: 235px; height: auto">
             </a>
 
             <!-- Sidebar -->

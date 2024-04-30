@@ -13,7 +13,7 @@ class AdministrasiModel extends Model
     protected $table = 'user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+    protected $fillable = ['level_id', 'username', 'nama', 'nik', 'jabatan','password'];
 
     public function level():BelongsTo{
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');

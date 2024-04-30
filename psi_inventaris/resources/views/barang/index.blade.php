@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-warning mt-1" href="{{ url('administrasi/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-warning mt-1" href="{{ url('barang/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -14,13 +14,14 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_administrasi">
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_barang">
                 <thead>
                     <tr class="text-center">
                         <th>ID</th>
                         <th>Nama</th>
-                        <th>NIK</th>
-                        <th>Jabatan</th>
+                        <th>Merk</th>
+                        <th>Volume</th>
+                        <th>Satuan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -33,10 +34,10 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataAdministrasi = $('#table_administrasi').DataTable({
+            var dataBarang = $('#table_barang').DataTable({
                 serverSide: true, // serverSide: true, jika ingin menggunakan server side processing
                 ajax: {
-                    "url": "{{ url('administrasi/list') }}",
+                    "url": "{{ url('barang/list') }}",
                     "dataType": "json",
                     "type": "POST"
                 },
@@ -46,20 +47,25 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: "nama",
+                    data: "barang_nama",
                     className: "",
                     orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
                     searchable: true // searchable: true, jika ingin kolom ini bisa dicari
                 }, {
-                    data: "nik",
+                    data: "merk",
+                    className: "",
+                    orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "volume",
                     className: "",
                     orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
                     searchable: false // searchable: true, jika ingin kolom ini bisa dicari
                 }, {
-                    data: "jabatan",
+                    data: "satuan",
                     className: "",
-                    orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
-                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                    orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
                 }, {
                     data: "aksi",
                     className: "text-center",

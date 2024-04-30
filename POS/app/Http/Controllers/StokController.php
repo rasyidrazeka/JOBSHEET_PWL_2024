@@ -25,7 +25,11 @@ class StokController extends Controller
 
         $activeMenu = 'stok';
 
-        return view('stok.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $barang = BarangModel::all();
+
+        $user = UserModel::all();
+
+        return view('stok.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
     }
     // Ambil data user dalam bentuk json untuk datatables 
     public function list(Request $request) 
@@ -77,5 +81,76 @@ class StokController extends Controller
             'stok_jumlah' => $request->stok_jumlah
         ]);
         return redirect('/stok')->with('success', 'Data stok barang berhasil ditambah');
+    }
+
+    public function show(string $id)
+    {
+        $stok = StokModel::with('barang', 'user')->find($id);
+
+        $breadcrumb = (object)[
+            'title' => 'Detail Stok',
+            'list' => ['Home', 'Stok', 'Detail']
+        ];
+
+        $page = (object)[
+            'title' => 'Detail stok barang'
+        ];
+
+        $activeMenu = 'stok';
+
+        return view('stok.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stok' => $stok, 'activeMenu' => $activeMenu]);
+    }
+
+    public function edit(string $id)
+    {
+        $stok = StokModel::find($id);
+        $barang = BarangModel::all();
+        $user = UserModel::all();
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Stok',
+            'list' => ['Home', 'Stok', 'Edit']
+        ];
+
+        $page = (object)[
+            'title' => 'Edit stok barang'
+        ];
+
+        $activeMenu = 'stok';
+
+        return view('stok.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stok' => $stok, 'barang' => $barang, 'user' => $user, 'activeMenu' => $activeMenu]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request -> validate([
+            'stok_tanggal' => 'required',
+            'barang_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'stok_jumlah' => 'required|integer'
+        ]);
+
+        StokModel::find($id)->update([
+            'stok_tanggal' => $request->stok_tanggal,
+            'barang_id' => $request->barang_id,
+            'user_id' => $request->user_id,
+            'stok_jumlah' => $request->stok_jumlah
+        ]);
+        return redirect('/stok')->with('success', 'Data stok barang berhasil diubah');
+    }
+
+    public function destroy(string $id)
+    {
+        $check = StokModel::find($id);
+        if(!$check){
+            return redirect('/stok')->with('error', 'Data stok barang tidak ditemukan');
+        }
+        
+        try{
+            StokModel::destroy($id);
+            return redirect('/stok')->with('success', 'Data stok berhasil dihapus');
+        }catch(\Illuminate\Database\QueryException $e){
+            return redirect('/stok')->with('error', 'Data stok barang gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
     }
 }

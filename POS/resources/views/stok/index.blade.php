@@ -8,6 +8,12 @@
             </div>
         </div>
         <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <table class="table table-bordered table-striped table-hover table-sm" id="table_stok">
                 <thead>
                     <tr>
@@ -49,20 +55,20 @@
                     data: "barang.barang_nama",
                     className: "",
                     orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
                 }, {
                     data: "user.nama",
                     className: "",
                     orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
                 }, {
                     data: "stok_jumlah",
                     className: "",
                     orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
                     searchable: false // searchable: true, jika ingin kolom ini bisa dicari
-                },{
+                }, {
                     data: "aksi",
-                    className: "",
+                    className: "text-center",
                     orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
                     searchable: false // searchable: true, jika ingin kolom ini bisa dicari 
                 }]

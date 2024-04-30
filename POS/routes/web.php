@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\StokController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
-Route::get('/sell', [SellController::class, 'sell']);
+// Route::get('/sell', [SellController::class, 'sell']);
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'index']);
@@ -80,6 +81,17 @@ Route::group(['prefix' => 'stok'], function(){
     Route::get('/{id}/edit', [StokController::class, 'edit']);
     Route::put('/{id}', [StokController::class, 'update']);
     Route::delete('/{id}', [StokController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'transaksi'], function(){
+    Route::get('/', [TransaksiController::class, 'index']);
+    Route::post('/list', [TransaksiController::class, 'list']);
+    Route::get('/create', [TransaksiController::class, 'create']);
+    Route::post('/', [TransaksiController::class, 'store']);
+    Route::get('/{id}', [TransaksiController::class, 'show']);
+    Route::get('/{id}/edit', [TransaksiController::class, 'edit']);
+    Route::put('/{id}', [TransaksiController::class, 'update']);
+    Route::delete('/{id}', [TransaksiController::class, 'destroy']);
 });
 
 // Route::get('/user', [UserController::class, 'index']);
