@@ -44,7 +44,9 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Gambar</label>
                     <div class="col-11">
-                        <input type="file" id="gambar" name="gambar" value="" required>
+                        {{-- <img class="img-preview img-fluid mb-3 col-sm-5"> --}}
+                        <input type="file" id="gambar" name="gambar" value="" required
+                            onchange="previewImage()">
                         @error('gambar')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -108,6 +110,21 @@
             </form>
         </div>
     </div>
+    {{-- <script>
+        function previewImage() {
+            const image = document.querySelector('#gambar');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataUrl(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script> --}}
 @endsection
 @push('css')
 @endpush

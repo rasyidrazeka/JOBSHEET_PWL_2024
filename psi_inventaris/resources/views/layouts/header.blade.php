@@ -1,26 +1,43 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="height: 74.49px">
-    {{-- <!-- Left navbar links -->
+    <!-- Left navbar links -->
     <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <li class="nav-item me-3">
+            <div class="d-flex flex-row align-items-center justify-content-center">
+                <i class="nav-icon fa-solid fa-circle-user p-3" style="font-size: 40px"></i>
+                <div class="d-flex flex-column">
+                    <div style="font-size: 15px">{{ auth()->user()->nama }}</div>
+                    <div style="font-size: 15px">{{ auth()->user()->level->level_nama }}</div>
+                </div>
+            </div>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="../../index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-        </li>
-    </ul> --}}
+    </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item me-3">
-            <div class="d-flex flex-row align-items-center justify-content-center">
-                <div class="d-flex flex-column">
-                    <div style="font-size: 15px">Sekretaris Jurusan</div>
-                    <div style="font-size: 15px">User</div>
-                </div>
-                <i class="nav-icon fa-solid fa-circle-user p-3" style="font-size: 40px"></i>
+        <!-- Notifications Dropdown Menu -->
+        <li class="nav-item dropdown d-flex align-items-center">
+            <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#">
+                <i class="far fa-bell" style="font-size: 20px"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-item dropdown-header">15 Notifications</span>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-envelope mr-2"></i> 4 new messages
+                    <span class="float-right text-muted text-sm">3 mins</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-users mr-2"></i> 8 friend requests
+                    <span class="float-right text-muted text-sm">12 hours</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-file mr-2"></i> 3 new reports
+                    <span class="float-right text-muted text-sm">2 days</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
         {{-- <!-- Navbar Search -->
@@ -105,33 +122,6 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-        </li>
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
         <li class="nav-item">

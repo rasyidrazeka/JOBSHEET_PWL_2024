@@ -18,8 +18,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/barang') }}"
-                    class="nav-link {{ $activeMenu == 'barang' ? 'active' : '' }}">
+                <a href="{{ url('/barang') }}" class="nav-link {{ $activeMenu == 'barang' ? 'active' : '' }}">
                     <i class="nav-icon fa-solid fa-warehouse"></i>
                     <p>Data Barang</p>
                 </a>
@@ -44,11 +43,27 @@
                     <p>Pelaporan</p>
                 </a>
             </li>
+            <li>
+                <hr>
+            </li>
             <li class="nav-item">
-                <a href="{{ url('/logout') }}" class="nav-link {{ $activeMenu == 'logout' ? 'active' : '' }}">
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="btn {{ $activeMenu == 'logout' ? 'active' : '' }}">
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <i class="nav-icon fa-solid fa-right-from-bracket col"></i>
+                            </div>
+                            <div class="col d-flex align-items-center p-0">
+                                Logout
+                            </div>
+                        </div>
+                    </button>
+                </form>
+                {{-- <a href="{{ url('/logout') }}" class="nav-link {{ $activeMenu == 'logout' ? 'active' : '' }}">
                     <i class="nav-icon fa-solid fa-right-from-bracket"></i>
                     <p>Logout</p>
-                </a>
+                </a> --}}
             </li>
         </ul>
     </nav>

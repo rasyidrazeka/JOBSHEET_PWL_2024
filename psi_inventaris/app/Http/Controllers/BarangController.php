@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangModel;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
 class BarangController extends Controller
@@ -27,9 +28,13 @@ class BarangController extends Controller
         return DataTables::of($barangs) 
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addColumn('aksi', function ($barang) { // menambahkan kolom aksi
-                $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
-                $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
-                $btn .= '<form class="d-inline-block" method="POST" action="'. url('/barang/'.$barang->barang_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                if (auth()->user()->level_id==1) {
+                    $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                    $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
+                    $btn .= '<form class="d-inline-block" method="POST" action="'. url('/barang/'.$barang->barang_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                }elseif (auth()->user()->level_id==2) {
+                    $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                }
                 return $btn; 
             })
         ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html 
@@ -80,7 +85,8 @@ class BarangController extends Controller
             'harga_satuan' => $request->harga_satuan,
             // 'gambar' => $nama_gambar
         ]);
-        return redirect('/barang')->with('success', 'Data barang berhasil ditambah');
+        Alert::toast('Data barang berhasil ditambahkan', 'success');
+        return redirect('/barang');
     }
 
     public function show(string $id){
@@ -146,20 +152,24 @@ class BarangController extends Controller
             'harga_satuan' => $request->harga_satuan,
             // 'gambar' => $nama_gambar
         ]);
-        return redirect('/barang')->with('success', 'Data barang berhasil diubah');
+        Alert::toast('Data barang berhasil diubah', 'success');
+        return redirect('/barang');
     }
 
     public function destroy(string $id)
     {
         $check = BarangModel::find($id);
         if(!$check){
-            return redirect('/barang')->with('error', 'Data barang tidak ditemukan');
+            Alert::toast('Data barang tidak ditemukan', 'error');
+            return redirect('/barang');
         }
         try{
             BarangModel::destroy($id);
-            return redirect('/barang')->with('success', 'Data barang berhasil dihapus');
+            Alert::toast('Data barang berhasil dihapus', 'success');
+            return redirect('/barang');
         }catch(\Illuminate\Database\QueryException $e){
-            return redirect('/barang')->with('error', 'Data barang gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            Alert::toast('Data barang gagal dihapus', 'error');
+            return redirect('/barang');
         }
     }
 }

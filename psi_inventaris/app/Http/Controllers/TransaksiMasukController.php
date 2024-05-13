@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\TransaksiMasukModel;
 use App\Models\BarangModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiMasukController extends Controller
@@ -32,9 +34,13 @@ class TransaksiMasukController extends Controller
         return DataTables::of($transaksiMasuks) 
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addColumn('aksi', function ($transaksi_masuk) { // menambahkan kolom aksi  
-                $btn = '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
-                $btn .= '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
-                $btn .= '<form class="d-inline-block" method="POST" action="'. url('/transaksiMasuk/'.$transaksi_masuk->transaksiMasuk_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                if (auth()->user()->level_id==1) {
+                    $btn = '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                    $btn .= '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
+                    $btn .= '<form class="d-inline-block" method="POST" action="'. url('/transaksiMasuk/'.$transaksi_masuk->transaksiMasuk_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                }elseif (auth()->user()->level_id==2) {
+                    $btn = '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                }
             return $btn; 
         })
         ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html 
@@ -49,7 +55,7 @@ class TransaksiMasukController extends Controller
         ];
 
         $page = (object)[
-            'title' => "Tambah data transaksi masuk baru"
+            'title' => "Tambah data transaksi masuk dari sistem informasi inventaris BHP JTI POLINEMA"
         ];
 
         $barang = BarangModel::all();
@@ -73,14 +79,14 @@ class TransaksiMasukController extends Controller
         $nama_gambar = time()."_".$gambar->getClientOriginalName();
         $tujuan_upload = 'img_barang';
 		$gambar -> move($tujuan_upload,$nama_gambar);
-
+        
         $volume = $request->qty;
         $id_barang = $request->barang_id;
         $vol_old = BarangModel::find($id_barang)->volume;
         // $volume_old = $request->barang->volume;
 
         TransaksiMasukModel::create([
-            'kode_transaksiMasuk' => 312321312,
+            'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
             'barang_id' => $id_barang,
             'qty' => $volume,
             'gambar' => $nama_gambar,
@@ -90,23 +96,149 @@ class TransaksiMasukController extends Controller
         BarangModel::find($id_barang)->update([
             'volume' => $vol_old+$volume
         ]);
-        return redirect('/transaksiMasuk')->with('success', 'Data transaksi masuk berhasil ditambah');
+        Alert::toast('Data transaksi masuk berhasil ditambahkan', 'success');
+        return redirect('/transaksiMasuk');
     }
 
     public function show(string $id){
-        $transaksiMasuk = TransaksiMasukModel::with('barang')->find($id);
+        $transaksi_masuk = TransaksiMasukModel::with('barang')->find($id);
 
         $breadcrumb = (object) [
-            'title' => 'Detail Barang',
-            'list' =>['Home', 'Barang', 'Detail']
+            'title' => 'Detail Transaksi Masuk',
+            'list' =>['Home', 'Transaksi Masuk', 'Detail']
         ];
 
         $page = (object) [
-            'title' => 'Detail barang'
+            'title' => 'Detail transaksi masuk'
         ];
 
         $activeMenu = 'transaksiMasuk';
 
-        return view('barang.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksiMasuk' => $transaksiMasuk, 'activeMenu' => $activeMenu]);
+        return view('transaksiMasuk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksi_masuk' => $transaksi_masuk, 'activeMenu' => $activeMenu]);
+    }
+
+    public function edit(string $id)
+    {
+        $transaksi_masuk = TransaksiMasukModel::find($id);
+
+        $barang = BarangModel::all();
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Transaksi Masuk',
+            'list' => ['Home', 'Transaksi Masuk', 'Edit']
+        ];
+
+        $page = (object)[
+            'title' => 'Edit transaksi masuk'
+        ];
+
+        $activeMenu = 'transaksiMasuk';
+
+        return view('transaksiMasuk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksi_masuk' => $transaksi_masuk, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'kode_transaksiMasuk' => 'required|string|min:3|unique:transaksi_masuk,kode_transaksiMasuk,'.$id.',transaksiMasuk_id',
+            'barang_id' => 'required|integer',
+            'qty' => 'required|integer',
+            'gambar' => 'nullable|file|image|mimes:jpeg,png,jpg|max:2048',
+            'tanggal_diterima' => 'required'
+        ]);
+        $transaksi_masuk = TransaksiMasukModel::find($id);
+
+        $volume = $request->qty;
+        $id_barang = $request->barang_id;
+        $vol_old = BarangModel::find($id_barang)->volume;
+        $vol_old_transaksi = TransaksiMasukModel::find($id)->qty;
+
+        if ($request->file('gambar') == "") {
+            $transaksi_masuk->update([
+                'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
+                'barang_id' => $id_barang,
+                'qty' => $volume,
+                'tanggal_diterima' => $request->tanggal_diterima
+            ]);
+
+            if ($vol_old_transaksi<$volume) {
+                BarangModel::find($id_barang)->update([
+                    $sisa_volume = $vol_old_transaksi-$volume,
+                    'volume' => $vol_old-$sisa_volume
+                ]);
+            }elseif ($vol_old_transaksi>$volume) {
+                BarangModel::find($id_barang)->update([
+                    $sisa_volume = $volume-$vol_old_transaksi,
+                    'volume' => $vol_old+$sisa_volume
+                ]);
+            }
+        }else {
+            $gambar = $request->file('gambar');
+            $nama_gambar = time()."_".$gambar->getClientOriginalName();
+            $tujuan_upload = 'img_barang';
+		    $gambar -> move($tujuan_upload,$nama_gambar);
+
+            $transaksi_masuk->update([
+                'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
+                'barang_id' => $request->barang_id,
+                'qty' => $request->qty,
+                'gambar' => $nama_gambar,
+                'tanggal_diterima' => $request->tanggal_diterima
+            ]);
+
+            if ($vol_old_transaksi<$volume) {
+                BarangModel::find($id_barang)->update([
+                    $sisa_volume = $vol_old_transaksi-$volume,
+                    'volume' => $vol_old-$sisa_volume
+                ]);
+            }elseif ($vol_old_transaksi>$volume) {
+                BarangModel::find($id_barang)->update([
+                    $sisa_volume = $volume-$vol_old_transaksi,
+                    'volume' => $vol_old+$sisa_volume
+                ]);
+            }
+        }
+
+        if ($transaksi_masuk) {
+            Alert::toast('Data transaksi masuk berhasil diubah', 'success');
+            return redirect('/transaksiMasuk');
+        }else {
+            Alert::toast('Data transaksi masuk gagal diubah', 'error');
+            return redirect('/transaksiMasuk');
+        }
+
+        // TransaksiMasukModel::find($id)->update([
+        //     'username' => $request->username,
+        //     'nama' => $request->nama,
+        //     'nik' => $request->nik,
+        //     'jabatan' => $request->jabatan,
+        //     'password' => $request->password ? bcrypt($request->password) : AdministrasiModel::find($id)->password,
+        //     'level_id' => $request->level_id
+        // ]);
+
+        // return redirect('/administrasi')->with('success', 'Data administrasi berhasil diubah');
+    }
+
+    public function destroy(string $id)
+    {
+        $check = TransaksiMasukModel::find($id);
+        if(!$check){
+            Alert::toast('Data transaksi masuk tidak ditemukan', 'error');
+            return redirect('/transaksiMasuk');
+        }
+        try{
+            $volume = TransaksiMasukModel::find($id)->qty;
+            $id_barang = TransaksiMasukModel::find($id)->barang_id;
+            $vol_old = BarangModel::find($id_barang)->volume;
+            BarangModel::find($id_barang)->update([
+                'volume' => $vol_old-$volume
+            ]);
+            TransaksiMasukModel::destroy($id);
+            Alert::toast('Data transaksi masuk berhasil dihapus', 'success');
+            return redirect('/transaksiMasuk');
+        }catch(\Illuminate\Database\QueryException $e){
+            Alert::toast('Data transaksi masuk gagal dihapus', 'error');
+            return redirect('/transaksiMasuk');
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangModel;
 use App\Models\PenjualanModel;
 use App\Models\TransaksiModel;
 use Illuminate\Http\Request;
@@ -38,5 +39,41 @@ class TransaksiController extends Controller
         }) 
         ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html 
         ->make(true); 
+    }
+
+    public function create(){
+        $breadcrumb = (object) [
+            'title' => 'Tambah Transaksi',
+            'list' =>['Home', 'Transaksi', 'Tambah']
+        ];
+
+        $page = (object) [
+            'title' => 'Tambah transaksi baru'
+        ];
+
+        $penjualan = PenjualanModel::all();
+
+        $barang = BarangModel::all();
+
+        $activeMenu = 'transaksi';
+
+        return view('transaksi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penjualan' => $penjualan, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+    }
+
+    // Menyimpan data user baru
+    public function store(Request $request){
+        $request->validate([
+            'penjualan_id' => 'required|integer',
+            'barang_id' => 'required|integer',
+            'jumlah' => 'required|integer'
+        ]);
+
+        TransaksiModel::create([
+            'penjualan_id' => $request->penjualan_id,
+            'barang_id' => $request->barang_id,
+            'jumlah' => $request->jumlah
+        ]);
+
+        return redirect('/transaksi')->with('success', 'Data transaksi berhasil disimpan');
     }
 }

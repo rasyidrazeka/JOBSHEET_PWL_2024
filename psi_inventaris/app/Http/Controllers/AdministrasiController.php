@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AdministrasiModel;
 use App\Models\LevelModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
 class AdministrasiController extends Controller
@@ -29,12 +31,16 @@ class AdministrasiController extends Controller
         if($request->level_id) {
             $users->where('level_id', $request->level_id);
         }
-        return DataTables::of($users) 
+        return DataTables::of($users)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addColumn('aksi', function ($user) { // menambahkan kolom aksi  
-            $btn = '<a href="'.url('/administrasi/' . $user->user_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
-            $btn .= '<a href="'.url('/administrasi/' . $user->user_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
-            $btn .= '<form class="d-inline-block" method="POST" action="'. url('/administrasi/'.$user->user_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                if (auth()->user()->level_id==1) {
+                    $btn = '<a href="'.url('/administrasi/' . $user->user_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                    $btn .= '<a href="'.url('/administrasi/' . $user->user_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
+                    $btn .= '<form class="d-inline-block" method="POST" action="'. url('/administrasi/'.$user->user_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                }elseif (auth()->user()->level_id==2) {
+                    $btn = '<a href="'.url('/administrasi/' . $user->user_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                }
             return $btn; 
         })
         ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html 
@@ -79,7 +85,8 @@ class AdministrasiController extends Controller
             'level_id' => $request->level_id
         ]);
 
-        return redirect('/administrasi')->with('success', 'Data administrasi berhasil disimpan');
+        Alert::toast('Data administrasi berhasil ditambahkan', 'success');
+        return redirect('/administrasi');
     }
 
     public function show(string $id){
@@ -138,21 +145,24 @@ class AdministrasiController extends Controller
             'password' => $request->password ? bcrypt($request->password) : AdministrasiModel::find($id)->password,
             'level_id' => $request->level_id
         ]);
-
-        return redirect('/administrasi')->with('success', 'Data administrasi berhasil diubah');
+        Alert::toast('Data administrasi berhasil diubah', 'success');
+        return redirect('/administrasi');
     }
 
     public function destroy(string $id)
     {
         $check = AdministrasiModel::find($id);
         if(!$check){
-            return redirect('/administrasi')->with('error', 'Data administrasi tidak ditemukan');
+            Alert::toast('Data administrasi tidak ditemukan', 'error');
+            return redirect('/administrasi');
         }
         try{
             AdministrasiModel::destroy($id);
-            return redirect('/administrasi')->with('success', 'Data administrasi berhasil dihapus');
+            Alert::toast('Data administrasi berhasil dihapus', 'success');
+            return redirect('/administrasi');
         }catch(\Illuminate\Database\QueryException $e){
-            return redirect('/administrasi')->with('error', 'Data administrasi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            Alert::toast('Data administrasi gagal dihapus', 'error');
+            return redirect('/administrasi');
         }
     }
 }

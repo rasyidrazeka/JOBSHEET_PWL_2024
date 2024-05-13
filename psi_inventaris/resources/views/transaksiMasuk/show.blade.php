@@ -7,7 +7,7 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            @empty($user)
+            @empty($transaksi_masuk)
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5> Data yang Anda cari tidak ditemukan.
                 </div>
@@ -15,34 +15,46 @@
                 <table class="table table-bordered table-striped table-hover table-sm">
                     <tr>
                         <th>ID</th>
-                        <td>{{ $user->user_id }}</td>
+                        <td>{{ $transaksi_masuk->transaksiMasuk_id }}</td>
                     </tr>
                     <tr>
-                        <th>Username</th>
-                        <td>{{ $user->username }}</td>
+                        <th>Kode</th>
+                        <td>{{ $transaksi_masuk->kode_transaksiMasuk }}</td>
                     </tr>
                     <tr>
                         <th>Nama</th>
-                        <td>{{ $user->nama }}</td>
+                        <td>{{ $transaksi_masuk->barang->barang_nama }}</td>
                     </tr>
                     <tr>
-                        <th>NIK</th>
-                        <td>{{ $user->nik }}</td>
+                        <th>Merk</th>
+                        <td>{{ $transaksi_masuk->barang->merk }}</td>
                     </tr>
                     <tr>
-                        <th>Jabatan</th>
-                        <td>{{ $user->jabatan }}</td>
+                        <th>Spesifikasi</th>
+                        <td>{{ $transaksi_masuk->barang->spesifikasi }}</td>
                     </tr>
                     <tr>
-                        <th>Level</th>
-                        <td>{{ $user->level->level_nama }}</td>
+                        <th>Gambar</th>
+                        <td><img width="150px" src="{{ url('/img_barang/' . $transaksi_masuk->gambar) }}"></td>
                     </tr>
                     <tr>
-                        <th>Password</th>
-                        <td>********</td>
+                        <th>Volume</th>
+                        <td>{{ $transaksi_masuk->qty }}</td>
+                    </tr>
+                    <tr>
+                        <th>Satuan</th>
+                        <td>{{ $transaksi_masuk->barang->satuan }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Harga</th>
+                        <td>Rp {{ $total_harga = $transaksi_masuk->barang->harga_satuan * $transaksi_masuk->qty }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal Masuk</th>
+                        <td>{{ $transaksi_masuk->tanggal_diterima }}</td>
                     </tr>
                 </table>
-            @endempty <a href="{{ url('administrasi') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+            @endempty <a href="{{ url('transaksiMasuk') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
     </div>
 @endsection

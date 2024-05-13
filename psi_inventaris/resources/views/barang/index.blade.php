@@ -3,9 +3,11 @@
     <div class="card card-outline card-warning">
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools">
-                <a class="btn btn-sm btn-warning mt-1" href="{{ url('barang/create') }}">Tambah</a>
-            </div>
+            @if (auth()->user()->level_id == 1)
+                <div class="card-tools">
+                    <a class="btn btn-sm btn-warning mt-1" href="{{ url('barang/create') }}">Tambah</a>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             @if (session('success'))
