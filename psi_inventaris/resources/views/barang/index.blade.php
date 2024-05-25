@@ -1,4 +1,5 @@
 @extends('layouts.template')
+@section('title', 'Data Barang')
 @section('content')
     <div class="card card-outline card-warning">
         <div class="card-header">

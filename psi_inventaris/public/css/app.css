@@ -1,0 +1,12 @@
+/* public/css/app.css */
+
+/* Ubah warna latar belakang dan teks dari item sidebar yang aktif */
+.nav-sidebar .nav-link.active {
+    background-color: #007bff !important; /* Ubah sesuai dengan warna yang diinginkan */
+    color: #fff !important; /* Warna teks */
+}
+
+/* Ubah warna ikon dari item sidebar yang aktif */
+.nav-sidebar .nav-link.active .nav-icon {
+    color: #fff !important; /* Warna ikon */
+}

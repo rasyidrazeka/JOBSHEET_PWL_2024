@@ -1,4 +1,5 @@
 @extends('layouts.template')
+@section('title', 'Tambah Data Transaksi Masuk')
 @section('content')
     <div class="card card-outline card-warning">
         <div class="card-header">

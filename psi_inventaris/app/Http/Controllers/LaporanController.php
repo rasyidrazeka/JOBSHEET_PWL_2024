@@ -61,6 +61,10 @@ class LaporanController extends Controller
                 'total_harga' => $totalHarga,
             ];
         }
-        return response()->json($laporan);
+        return response()->json([
+            'data' => $laporan,
+            'recordsTotal' => count($laporan),
+            'recordsFiltered' => count($laporan),
+        ]);
     }
 }

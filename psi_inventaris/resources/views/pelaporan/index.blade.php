@@ -1,4 +1,5 @@
 @extends('layouts.template')
+@section('title', 'Pelaporan Bulanan')
 @section('content')
     <div class="card card-outline card-warning">
         <div class="card-header">
@@ -36,7 +37,7 @@
                             <div class="col-8">
                                 <select name="tahun" id="tahun" class="form-control" required>
                                     <option value="">- SEMUA -</option>
-                                    @for ($i = 2023; $i <= date('Y'); $i++)
+                                    @for ($i = 2020; $i <= date('Y'); $i++)
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
@@ -67,6 +68,7 @@
 @push('css')
 @endpush
 @push('js')
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#filterForm').submit(function(e) {
@@ -80,29 +82,52 @@
                     ajax: {
                         url: '{{ route('pelaporan.filter') }}',
                         type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            bulan: bulan,
-                            tahun: tahun
+                        data: function(d) {
+                            d._token = '{{ csrf_token() }}';
+                            d.bulan = bulan;
+                            d.tahun = tahun;
                         }
                     },
                     columns: [{
-                        data: 'nama_barang',
-                        name: 'nama_barang'
-                    }, {
-                        data: 'barang_masuk',
-                        name: 'barang_masuk'
-                    }, {
-                        data: 'barang_keluar',
-                        name: 'barang_keluar'
-                    }, {
-                        data: 'sisa_barang',
-                        name: 'sisa_barang'
-                    }, {
-                        data: 'total_harga',
-                        name: 'total_harga'
-                    }],
-                    destroy: true // Add this to reinitialize the table with new data
+                            data: 'nama_barang',
+                            name: 'nama_barang',
+                        },
+                        {
+                            data: 'barang_masuk',
+                            name: 'barang_masuk'
+                        },
+                        {
+                            data: 'barang_keluar',
+                            name: 'barang_keluar'
+                        },
+                        {
+                            data: 'sisa_barang',
+                            name: 'sisa_barang'
+                        },
+                        {
+                            data: 'total_harga',
+                            name: 'total_harga'
+                        }
+                    ],
+                    destroy: true, // Add this to reinitialize the table with new data
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'print',
+                        text: 'Cetak',
+                        customize: function(win) {
+                            // Add your custom title here
+                            $(win.document.head).find('title').text(
+                                'Laporan Transaksi Bulanan');
+                            $(win.document.body).css('font-size', '10pt')
+                                .prepend(
+                                    '<h3>Laporan Transaksi Bulanan</h3>'
+                                );
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }]
                 });
             });
         });
