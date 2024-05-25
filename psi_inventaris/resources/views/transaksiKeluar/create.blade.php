@@ -3,10 +3,20 @@
     <div class="card card-outline card-warning">
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools"></div>
+            <div class="card-tools" style="width: 280px">
+                <div class="row">
+                    <div class="col d-flex align-items-center justify-content-center">
+                        Barang tidak ada?
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-sm btn-warning mt-1" href="{{ url('barang/create') }}">Tambah Barang</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('transaksiKeluar') }}" class="form-horizontal" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('transaksiKeluar') }}" class="form-horizontal"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Kode</label>

@@ -19,7 +19,14 @@ class BarangController extends Controller
             'title' => 'Berikut ini merupakan data barang dari sistem informasi inventaris BHP JTI POLINEMA'
         ];
         $activeMenu = 'barang';
-        return view('barang.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+
+        $barang = BarangModel::all();
+
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        
+        return view('barang.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'barang' => $barang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)
@@ -54,7 +61,11 @@ class BarangController extends Controller
 
         $activeMenu = 'barang';
 
-        return view('barang.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('barang.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -103,7 +114,11 @@ class BarangController extends Controller
 
         $activeMenu = 'barang';
 
-        return view('barang.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('barang.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'barang' => $barang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function edit(string $id)
@@ -121,7 +136,11 @@ class BarangController extends Controller
 
         $activeMenu = 'barang';
 
-        return view('barang.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('barang.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'barang' => $barang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, string $id)
@@ -147,7 +166,6 @@ class BarangController extends Controller
             'barang_nama' => $request->barang_nama,
             'merk' => $request->merk,
             'spesifikasi' => $request->spesifikasi,
-            'volume' => 0,
             'satuan' => $request->satuan,
             'harga_satuan' => $request->harga_satuan,
             // 'gambar' => $nama_gambar

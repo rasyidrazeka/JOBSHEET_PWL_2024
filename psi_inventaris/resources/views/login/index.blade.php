@@ -60,25 +60,12 @@
     <div
         class="container-fluid d-flex flex-column card-body card-body-cus justify-content-center align-items-center text-center mt-5">
         <img src="{{ asset('img/logo transparan.png') }}" alt="logo" class="logo-trans my-3">
-        @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if (session()->has('loginError'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('loginError') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
         <form action="/login" method="post" class="d-flex flex-column m-5">
             @csrf
             <input type="text" name="username" id="username" class="form-control-lg form-cus mb-4"
-                placeholder="Username" autofocus required>
+                placeholder="Username" autofocus required value="{{ old('username') }}">
             <input type="password" name="password" id="password" class="form-control-lg form-cus mb-4"
-                placeholder="Password" required>
+                placeholder="Password" required value="{{ old('password') }}">
             <button type="submit" class="btn-primary btn-login-cus mt-4">MASUK</button>
         </form>
     </div>

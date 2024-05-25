@@ -16,28 +16,38 @@
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown d-flex align-items-center">
-            <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#">
+            <a class="nav-link d-flex align-items-center" data-toggle="dropdown">
                 <i class="far fa-bell" style="font-size: 20px"></i>
+                @if ($stokKurang->count() > 0)
+                    <span class="badge badge-warning navbar-badge">{{ $stokKurang->count() }}</span>
+                @endif
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
+                <span class="dropdown-item dropdown-header">Seluruh Notifikasi</span>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                @forelse ($notifBarang as $item)
+                    @if ($item->volume <= 5)
+                        <div class="dropdown-item">
+                            <div class="col">
+                                <div class="row">
+                                    {{ $item->barang_nama }}
+                                </div>
+                                <div class="row">
+                                    stok tersisa {{ $item->volume }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                    @endif
+                @empty
+                    <div class="dropdown-item">
+                        <div class="col">
+                            <div class="row">
+                                Tidak ada notifikasi
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </li>
         {{-- <!-- Navbar Search -->

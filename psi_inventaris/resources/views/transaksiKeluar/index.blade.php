@@ -54,6 +54,7 @@
 @push('css')
 @endpush
 @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
         $(document).ready(function() {
             var dataTransaksiKeluar = $('#table_transaksiKeluar').DataTable({
@@ -67,55 +68,44 @@
                     }
                 },
                 columns: [{
-                        data: "DT_RowIndex", // nomor urut dari laravel datatable addIndexColumn() 
-                        className: "text-center",
-                        orderable: false,
-                        searchable: false
-                    }, {
-                        data: "barang.barang_nama",
-                        className: "",
-                        orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
-                        searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                    data: "DT_RowIndex", // nomor urut dari laravel datatable addIndexColumn()
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "barang.barang_nama",
+                    className: "",
+                    orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "qty",
+                    className: "",
+                    orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "barang.satuan",
+                    className: "",
+                    orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "barang.volume",
+                    className: "",
+                    orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "tanggal_keluar",
+                    name: "tanggal_keluar",
+                    render: function(data, type, row) {
+                        return moment(data).format('DD-MMMM-YYYY HH:mm:ss');
                     },
-                    // {
-                    //     data: "barang.merk",
-                    //     className: "",
-                    //     orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
-                    //     searchable: true // searchable: true, jika ingin kolom ini bisa dicari
-                    // }, 
-                    // {
-                    //     data: "barang.spesifikasi",
-                    //     className: "",
-                    //     orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                    //     searchable: false // searchable: true, jika ingin kolom ini bisa dicari
-                    // }, 
-                    {
-                        data: "qty",
-                        className: "",
-                        orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
-                        searchable: true // searchable: true, jika ingin kolom ini bisa dicari
-                    }, {
-                        data: "barang.satuan",
-                        className: "",
-                        orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                        searchable: false // searchable: true, jika ingin kolom ini bisa dicari
-                    }, {
-                        data: "barang.volume",
-                        className: "",
-                        orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                        searchable: false // searchable: true, jika ingin kolom ini bisa dicari
-                    }, {
-                        data: "tanggal_keluar",
-                        className: "",
-                        orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                        searchable: false // searchable: true, jika ingin kolom ini bisa dicari
-                    }, {
-                        data: "aksi",
-                        className: "text-center",
-                        orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                        searchable: false // searchable: true, jika ingin kolom ini bisa dicari 
-                    }
-                ]
+                    orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "aksi",
+                    className: "text-center",
+                    orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                }]
             });
             $('#barang_id').on('change', function() {
                 dataTransaksiKeluar.ajax.reload();

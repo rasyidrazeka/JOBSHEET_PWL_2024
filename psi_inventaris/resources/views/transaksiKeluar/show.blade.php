@@ -47,11 +47,11 @@
                     </tr>
                     <tr>
                         <th>Sisa Barang</th>
-                        <td>{{$transaksi_keluar->barang->volume}}</td>
+                        <td>{{ $transaksi_keluar->barang->volume }}</td>
                     </tr>
                     <tr>
                         <th>Tanggal Keluar</th>
-                        <td>{{ $transaksi_keluar->tanggal_keluar }}</td>
+                        <td>{{ \Carbon\Carbon::parse($transaksi_keluar->tanggal_keluar)->format('d-M-Y H:m:s') }}</td>
                     </tr>
                 </table>
             @endempty

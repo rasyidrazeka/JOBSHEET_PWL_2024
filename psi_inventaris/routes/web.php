@@ -5,6 +5,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TransaksiKeluarController;
 use App\Http\Controllers\TransaksiMasukController;
@@ -27,6 +28,10 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+
+Route::get('/pelaporan', [LaporanController::class, 'index'])->middleware('auth');
+
+Route::post('/pelaporan/filter', [LaporanController::class, 'filter'])->name('pelaporan.filter')->middleware('auth');
 
 Route::group(['prefix'=>'administrasi'], function(){
     Route::get('/', [AdministrasiController::class, 'index'])->middleware('auth');

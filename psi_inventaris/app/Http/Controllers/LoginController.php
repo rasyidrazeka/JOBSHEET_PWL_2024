@@ -23,7 +23,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            Alert::toast('Selamat anda berhasil login', 'success');
+            Alert::toast('Selamat Datang '.auth()->user()->level->level_nama.' : '.auth()->user()->nama, 'success');
             return redirect()->intended('/dashboard');
         }else {
             Alert::toast('Mohon maaf username atau password salah', 'error');

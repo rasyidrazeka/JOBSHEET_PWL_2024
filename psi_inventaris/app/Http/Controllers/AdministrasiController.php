@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdministrasiModel;
+use App\Models\BarangModel;
 use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,9 @@ class AdministrasiController extends Controller
         ];
         $activeMenu = 'administrasi';
         $level = LevelModel::all();
-        return view('administrasi.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        return view('administrasi.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)
@@ -62,7 +65,11 @@ class AdministrasiController extends Controller
 
         $activeMenu = 'administrasi';
 
-        return view('administrasi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('administrasi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -103,7 +110,11 @@ class AdministrasiController extends Controller
 
         $activeMenu = 'administrasi';
 
-        return view('administrasi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('administrasi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'user' => $user, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 
     public function edit(string $id)
@@ -123,7 +134,11 @@ class AdministrasiController extends Controller
 
         $activeMenu = 'administrasi';
 
-        return view('administrasi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'level' => $level, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('administrasi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'user' => $user, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, string $id)

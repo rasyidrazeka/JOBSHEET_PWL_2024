@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <th>Tanggal Masuk</th>
-                        <td>{{ $transaksi_masuk->tanggal_diterima }}</td>
+                        <td>{{ \Carbon\Carbon::parse($transaksi_masuk->tanggal_diterima)->format('d-M-Y H:m:s') }}</td>
                     </tr>
                 </table>
             @endempty <a href="{{ url('transaksiMasuk') }}" class="btn btn-sm btn-default mt-2">Kembali</a>

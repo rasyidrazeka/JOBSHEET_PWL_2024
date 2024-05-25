@@ -21,8 +21,14 @@ class TransaksiMasukController extends Controller
             'title' => 'Berikut ini merupakan data transaksi masuk dari sistem informasi inventaris BHP JTI POLINEMA'
         ];
         $activeMenu = 'transaksiMasuk';
+
+        $notifBarang = BarangModel::all();
+
         $barang = BarangModel::all();
-        return view('transaksiMasuk.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('transaksiMasuk.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'notifBarang' => $notifBarang, 'barang' => $barang, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)
@@ -58,11 +64,15 @@ class TransaksiMasukController extends Controller
             'title' => "Tambah data transaksi masuk dari sistem informasi inventaris BHP JTI POLINEMA"
         ];
 
+        $notifBarang = BarangModel::all();
+
         $barang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
 
         $activeMenu = 'transaksiMasuk';
 
-        return view('transaksiMasuk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        return view('transaksiMasuk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'notifBarang' => $notifBarang, 'barang' => $barang, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -114,14 +124,22 @@ class TransaksiMasukController extends Controller
 
         $activeMenu = 'transaksiMasuk';
 
-        return view('transaksiMasuk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksi_masuk' => $transaksi_masuk, 'activeMenu' => $activeMenu]);
+        $notifBarang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+
+        return view('transaksiMasuk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'transaksi_masuk' => $transaksi_masuk, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function edit(string $id)
     {
         $transaksi_masuk = TransaksiMasukModel::find($id);
 
+        $notifBarang = BarangModel::all();
+
         $barang = BarangModel::all();
+
+        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
 
         $breadcrumb = (object)[
             'title' => 'Edit Transaksi Masuk',
@@ -134,7 +152,7 @@ class TransaksiMasukController extends Controller
 
         $activeMenu = 'transaksiMasuk';
 
-        return view('transaksiMasuk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksi_masuk' => $transaksi_masuk, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        return view('transaksiMasuk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'transaksi_masuk' => $transaksi_masuk, 'notifBarang' => $notifBarang, 'barang' => $barang, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, string $id)

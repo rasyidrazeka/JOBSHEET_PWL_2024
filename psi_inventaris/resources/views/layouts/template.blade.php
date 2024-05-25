@@ -1,16 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'PSI Laravel Starter Code') }}</title>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        
-        <!-- Google Font: Source Sans Pro -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name', 'PSI Laravel Starter Code') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- DataTables -->
@@ -22,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- Icon Font Awesome -->
     <script src="https://kit.fontawesome.com/75f7078132.js" crossorigin="anonymous"></script>
-    
+
     @stack('css')
 </head>
 
@@ -30,11 +29,11 @@
     @include('sweetalert::alert')
     <!-- Site wrapper -->
     <div class="wrapper">
-        
+
         <!-- Navbar -->
         @include('layouts.header')
         <!-- /.navbar -->
-        
+
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
@@ -86,6 +85,7 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <script>
@@ -95,7 +95,6 @@
             }
         });
     </script>
-    
     @stack('js')
 </body>
 
