@@ -27,7 +27,7 @@
                                         </option>
                                     @endfor
                                 </select>
-                                <small class="form-text text-muted">Bulan</small>
+                                <small class="form-text text-muted">Pilih Bulan</small>
                             </div>
                         </div>
                     </div>
@@ -41,12 +41,12 @@
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
-                                <small class="form-text text-muted">Tahun</small>
+                                <small class="form-text text-muted">Pilih Tahun</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-warning">Filter</button>
+                        <button type="submit" class="btn btn-warning">Tampilkan</button>
                     </div>
                 </div>
             </form>
@@ -116,12 +116,12 @@
                         text: 'Cetak',
                         customize: function(win) {
                             // Add your custom title here
-                            $(win.document.head).find('title').text(
-                                'Laporan Transaksi Bulanan');
-                            $(win.document.body).css('font-size', '10pt')
-                                .prepend(
-                                    '<h3>Laporan Transaksi Bulanan</h3>'
-                                );
+                            // $(win.document.head).find('title').text(
+                            //     'Laporan Transaksi Bulanan');
+                            // $(win.document.body).css('font-size', '10pt')
+                            //     .prepend(
+                            //         '<h3>Laporan Transaksi Bulanan</h3>'
+                            //     );
 
                             $(win.document.body).find('table')
                                 .addClass('compact')

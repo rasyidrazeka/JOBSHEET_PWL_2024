@@ -7,7 +7,6 @@
     <title>Inventaris BHP | @yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -24,6 +23,19 @@
     <script src="https://kit.fontawesome.com/75f7078132.js" crossorigin="anonymous"></script>
 
     @stack('css')
+    <style>
+        .nav-sidebar .nav-link.active {
+            background-color: #ffc107 !important;
+            /* Ubah sesuai dengan warna yang diinginkan */
+            color: #343A40 !important;
+            /* Warna teks */
+        }
+
+        .nav-sidebar .nav-link.active .nav-icon {
+            color: #343A40 !important;
+            /* Warna ikon */
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">

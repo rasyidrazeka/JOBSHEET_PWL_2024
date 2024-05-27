@@ -51,14 +51,14 @@ class LaporanController extends Controller
             $masuk = $transaksiMasuk->where('barang_id', $item->barang_id)->sum('qty');
             $keluar = $transaksiKeluar->where('barang_id', $item->barang_id)->sum('qty');
             $sisa = $item->volume;
-            $totalHarga = ($masuk + $keluar + $sisa) * $item->harga_satuan;
+            $totalHarga = $masuk * $item->harga_satuan;
 
             $laporan[] = [
                 'nama_barang' => $item->barang_nama,
                 'barang_masuk' => $masuk,
                 'barang_keluar' => $keluar,
                 'sisa_barang' => $sisa,
-                'total_harga' => $totalHarga,
+                'total_harga' => 'Rp ' . $totalHarga,
             ];
         }
         return response()->json([
