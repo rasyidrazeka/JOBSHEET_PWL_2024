@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                         <th>Gambar</th>
-                        <td><img width="150px" src="{{ url('/img_barang/' . $transaksi_masuk->gambar) }}"></td>
+                        <td><img width="150px" src="{{ asset('storage/' . $transaksi_masuk->gambar) }}"></td>
                     </tr>
                     <tr>
                         <th>Volume</th>

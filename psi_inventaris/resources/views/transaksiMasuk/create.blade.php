@@ -54,12 +54,18 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Gambar</label>
                     <div class="col-11">
-                        {{-- <img class="img-preview img-fluid mb-3 col-sm-5"> --}}
-                        <input type="file" id="gambar" name="gambar" value="" required
-                            onchange="previewImage()">
-                        @error('gambar')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
+                        <div class="col">
+                            <div class="row">
+                                <img class="img-preview img-fluid mb-2 col-sm-2">
+                            </div>
+                            <div class="row">
+                                <input type="file" id="gambar" name="gambar" value="" required
+                                    onchange="previewImage()">
+                                @error('gambar')
+                                    <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -72,44 +78,6 @@
                         @enderror
                     </div>
                 </div>
-                {{-- <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Volume</label>
-                    <div class="col-11">
-                        <input type="number" class="form-control" id="volume" name="volume"
-                            value="0" required>
-                        @error('volume')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div> --}}
-                {{-- <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Satuan</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="satuan" name="satuan" value="" required>
-                        @error('satuan')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Harga Satuan</label>
-                    <div class="col-11">
-                        <input type="number" class="form-control" id="harga_satuan" name="harga_satuan" value=""
-                            required>
-                        @error('harga_satuan')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div> --}}
-                {{-- <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Gambar</label>
-                    <div class="col-11">
-                        <input type="file" id="gambar" name="gambar" value="{{ old('gambar') }}" required>
-                        @error('gambar')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div> --}}
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label"></label>
                     <div class="col-11">
@@ -120,23 +88,21 @@
             </form>
         </div>
     </div>
-    {{-- <script>
+@endsection
+@push('css')
+@endpush
+@push('js')
+    <script>
         function previewImage() {
-            const image = document.querySelector('#gambar');
+            const gambar = document.querySelector('#gambar');
             const imgPreview = document.querySelector('.img-preview');
-
             imgPreview.style.display = 'block';
-
             const oFReader = new FileReader();
-            oFReader.readAsDataUrl(image.files[0]);
+            oFReader.readAsDataURL(gambar.files[0]);
 
             oFReader.onload = function(oFREvent) {
                 imgPreview.src = oFREvent.target.result;
             }
         }
-    </script> --}}
-@endsection
-@push('css')
-@endpush
-@push('js')
+    </script>
 @endpush

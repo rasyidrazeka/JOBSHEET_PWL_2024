@@ -14,7 +14,7 @@
                 <a href="{{ url('barang') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
             @else
                 <form method="POST" action="{{ url('/barang/' . $barang->barang_id) }}" class="form-horizontal"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="edit-barang">
                     @csrf {!! method_field('PUT') !!} <!-- tambahkan baris ini untuk proses edit yang butuh method PUT -->
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Kode</label>

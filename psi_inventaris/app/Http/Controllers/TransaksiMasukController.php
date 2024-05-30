@@ -85,10 +85,9 @@ class TransaksiMasukController extends Controller
             'tanggal_diterima' => 'required'
         ]);
 
-        $gambar = $request->file('gambar');
-        $nama_gambar = time()."_".$gambar->getClientOriginalName();
-        $tujuan_upload = 'img_barang';
-		$gambar -> move($tujuan_upload,$nama_gambar);
+        if($request->file('gambar')){
+            $upGambar['gambar'] = $request->file('gambar')->store('img_barang');
+        }
         
         $volume = $request->qty;
         $id_barang = $request->barang_id;
@@ -99,7 +98,7 @@ class TransaksiMasukController extends Controller
             'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
             'barang_id' => $id_barang,
             'qty' => $volume,
-            'gambar' => $nama_gambar,
+            'gambar' => $upGambar['gambar'],
             'tanggal_diterima' => $request->tanggal_diterima
         ]);
 
@@ -191,16 +190,16 @@ class TransaksiMasukController extends Controller
                 ]);
             }
         }else {
-            $gambar = $request->file('gambar');
-            $nama_gambar = time()."_".$gambar->getClientOriginalName();
-            $tujuan_upload = 'img_barang';
-		    $gambar -> move($tujuan_upload,$nama_gambar);
+            Storage::delete($request->oldImage);
+            if($request->file('gambar')){
+                $upGambar['gambar'] = $request->file('gambar')->store('img_barang');
+            }
 
             $transaksi_masuk->update([
                 'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
                 'barang_id' => $request->barang_id,
                 'qty' => $request->qty,
-                'gambar' => $nama_gambar,
+                'gambar' => $upGambar['gambar'],
                 'tanggal_diterima' => $request->tanggal_diterima
             ]);
 
@@ -237,20 +236,22 @@ class TransaksiMasukController extends Controller
         // return redirect('/administrasi')->with('success', 'Data administrasi berhasil diubah');
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $check = TransaksiMasukModel::find($id);
-        if(!$check){
+        if (!$check) {
             Alert::toast('Data transaksi masuk tidak ditemukan', 'error');
             return redirect('/transaksiMasuk');
         }
         try{
-            $volume = TransaksiMasukModel::find($id)->qty;
-            $id_barang = TransaksiMasukModel::find($id)->barang_id;
+            $masuk = TransaksiMasukModel::find($id);
+            $id_barang = $masuk->barang_id;
             $vol_old = BarangModel::find($id_barang)->volume;
+            // dd($masuk);
             BarangModel::find($id_barang)->update([
-                'volume' => $vol_old-$volume
+                'volume' => $vol_old - $masuk->qty
             ]);
+            Storage::delete($masuk->gambar);
             TransaksiMasukModel::destroy($id);
             Alert::toast('Data transaksi masuk berhasil dihapus', 'success');
             return redirect('/transaksiMasuk');
@@ -258,5 +259,16 @@ class TransaksiMasukController extends Controller
             Alert::toast('Data transaksi masuk gagal dihapus', 'error');
             return redirect('/transaksiMasuk');
         }
+        // $check = TransaksiMasukModel::find($id);
+        // if(!$check){
+        //     Alert::toast('Data transaksi masuk tidak ditemukan', 'error');
+        //     return redirect('/transaksiMasuk');
+        // }
+        // try{
+            
+        // }catch(\Illuminate\Database\QueryException $e){
+        //     Alert::toast('Data transaksi masuk gagal dihapus', 'error');
+        //     return redirect('/transaksiMasuk');
+        // }
     }
 }

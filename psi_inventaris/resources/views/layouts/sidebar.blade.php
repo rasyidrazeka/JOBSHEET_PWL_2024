@@ -12,13 +12,13 @@
             </li>
             <li class="nav-item">
                 <a href="{{ url('/administrasi') }}"
-                    class="nav-link {{ $activeMenu == 'administrasi' ? 'active' : '' }}">
+                    class="nav-link {{ $activeMenu == 'administrasi' ? 'active' : '' }}" id="side-administrasi">
                     <i class="nav-icon fa-solid fa-users"></i>
                     <p>Administrasi</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/barang') }}" class="nav-link {{ $activeMenu == 'barang' ? 'active' : '' }}">
+                <a href="{{ url('/barang') }}" class="nav-link {{ $activeMenu == 'barang' ? 'active' : '' }}" id="side-barang">
                     <i class="nav-icon fa-solid fa-warehouse"></i>
                     <p>Data Barang</p>
                 </a>

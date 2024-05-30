@@ -7,13 +7,13 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('barang') }}" class="form-horizontal" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('barang') }}" class="form-horizontal" enctype="multipart/form-data" id="tambah-barang">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Kode Barang</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="barang_kode" name="barang_kode"
-                            value="" required>
+                            value="{{old('barang_kode')}}" required>
                         @error('barang_kode')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -23,7 +23,7 @@
                     <label class="col-1 control-label col-form-label">Nama Barang</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="barang_nama" name="barang_nama"
-                            value="" required>
+                            value="{{old('barang_nama')}}" required>
                         @error('barang_nama')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -32,7 +32,7 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Merk</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="merk" name="merk" value=""
+                        <input type="text" class="form-control" id="merk" name="merk" value="{{old('merk')}}"
                             required>
                         @error('merk')
                             <small class="form-text text-danger">{{ $message }}</small>
@@ -43,7 +43,7 @@
                     <label class="col-1 control-label col-form-label">Spesifikasi</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="spesifikasi" name="spesifikasi"
-                            value="" required>
+                            value="{{old('spesifikasi')}}" required>
                         @error('spesifikasi')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -63,7 +63,7 @@
                     <label class="col-1 control-label col-form-label">Satuan</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="satuan" name="satuan"
-                            value="" required>
+                            value="{{old('satuan')}}" required>
                         @error('satuan')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -73,7 +73,7 @@
                     <label class="col-1 control-label col-form-label">Harga Satuan</label>
                     <div class="col-11">
                         <input type="number" class="form-control" id="harga_satuan" name="harga_satuan"
-                            value="" required>
+                            value="{{old('harga_satuan')}}" required>
                         @error('harga_satuan')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror

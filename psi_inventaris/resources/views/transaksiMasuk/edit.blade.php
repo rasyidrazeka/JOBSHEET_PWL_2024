@@ -54,14 +54,27 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Gambar</label>
                         <div class="col-11">
-                            <input type="hidden" name="oldImage" value="{{ $transaksi_masuk->gambar }}">
-                            <input type="file" id="gambar" name="gambar">
-                            @error('gambar')
-                                <small class="form-text text-danger">{{ $message }}</small>
-                            @else
-                                <small class="form-text text-muted">Abaikan (jangan diisi) jika tidak ingin mengganti password
-                                    user.</small>
-                            @enderror
+                            <div class="col">
+                                <div class="row">
+                                    @if ($transaksi_masuk->gambar)
+                                        <img src="{{ asset('storage/' . $transaksi_masuk->gambar) }}"
+                                            class="img-preview img-fluid mb-2 col-sm-2">
+                                    @else
+                                        <img class="img-preview img-fluid mb-2 col-sm-2">
+                                    @endif
+                                </div>
+                                <div class="row">
+                                    <input type="hidden" name="oldImage" value="{{ $transaksi_masuk->gambar }}">
+                                    <input type="file" id="gambar" name="gambar" onchange="previewImage()">
+                                    @error('gambar')
+                                        <small class="form-text text-danger">{{ $message }}</small>
+                                    @else
+                                        <small class="form-text text-muted">Abaikan (jangan diisi) jika tidak ingin mengganti
+                                            gambar
+                                        </small>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -89,4 +102,17 @@
 @push('css')
 @endpush
 @push('js')
+    <script>
+        function previewImage() {
+            const gambar = document.querySelector('#gambar');
+            const imgPreview = document.querySelector('.img-preview');
+            imgPreview.style.display = 'block';
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(gambar.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endpush

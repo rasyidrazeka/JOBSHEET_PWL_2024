@@ -36,9 +36,9 @@ class BarangController extends Controller
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addColumn('aksi', function ($barang) { // menambahkan kolom aksi
                 if (auth()->user()->level_id==1) {
-                    $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
-                    $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
-                    $btn .= '<form class="d-inline-block" method="POST" action="'. url('/barang/'.$barang->barang_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                    $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info" id="btn-detail"></i>&nbsp;&nbsp;Detail</a> '; 
+                    $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white" id="btn-edit"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
+                    $btn .= '<form class="d-inline-block" id="btn-hapus" method="POST" action="'. url('/barang/'.$barang->barang_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
                 }elseif (auth()->user()->level_id==2) {
                     $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
                 }

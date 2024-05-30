@@ -7,7 +7,7 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('administrasi') }}" class="form-horizontal">
+            <form method="POST" action="{{ url('administrasi') }}" class="form-horizontal" id="tambah-administrasi">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Level</label>
@@ -26,8 +26,7 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Username</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="username" name="username"
-                            value="" required>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
                         @error('username')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -56,8 +55,8 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Jabatan</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan') }}"
-                            required>
+                        <input type="text" class="form-control" id="jabatan" name="jabatan"
+                            value="{{ old('jabatan') }}" required>
                         @error('jabatan')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
