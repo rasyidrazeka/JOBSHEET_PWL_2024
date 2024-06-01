@@ -24,7 +24,7 @@ class LaporanController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         return view('pelaporan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }

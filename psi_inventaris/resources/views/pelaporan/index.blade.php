@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-warning">Tampilkan</button>
+                        <button type="submit" class="btn btn-warning" id="tampilkan">Tampilkan</button>
                     </div>
                 </div>
             </form>

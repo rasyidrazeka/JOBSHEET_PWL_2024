@@ -24,7 +24,7 @@ class BarangController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
         
         return view('barang.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'barang' => $barang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
@@ -36,7 +36,7 @@ class BarangController extends Controller
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addColumn('aksi', function ($barang) { // menambahkan kolom aksi
                 if (auth()->user()->level_id==1) {
-                    $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info" id="btn-detail"></i>&nbsp;&nbsp;Detail</a> '; 
+                    $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm" id="btn-detail"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
                     $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white" id="btn-edit"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
                     $btn .= '<form class="d-inline-block" id="btn-hapus" method="POST" action="'. url('/barang/'.$barang->barang_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
                 }elseif (auth()->user()->level_id==2) {
@@ -63,7 +63,7 @@ class BarangController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         return view('barang.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
@@ -116,7 +116,7 @@ class BarangController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         return view('barang.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'barang' => $barang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
@@ -138,7 +138,7 @@ class BarangController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         return view('barang.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'barang' => $barang, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }

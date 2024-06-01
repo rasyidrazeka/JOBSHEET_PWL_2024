@@ -27,7 +27,7 @@ class DashboardController extends Controller
         ];
         $activeMenu = 'dashboard';
         $notifBarang = BarangModel::all();
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
         return view('dashboard.index', ['breadcrumb' => $breadcrumb, 'notifBarang' => $notifBarang, 'transaksi_masuk'=>$transaksi_masuk, 'transaksi_keluar'=>$transaksi_keluar, 'barang' => $barang, 'user' => $user, 'barangChart' => $barangChart->build(), 'administrasiChart' => $administrasiChart->build(), 'transaksiMasukChart' => $transaksiMasukChart->build(), 'transaksiKeluarChart' => $transaksiKeluarChart->build(), 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 }

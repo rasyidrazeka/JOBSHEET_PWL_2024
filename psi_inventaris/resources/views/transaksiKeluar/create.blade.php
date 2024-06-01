@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('transaksiKeluar') }}" class="form-horizontal"
-                enctype="multipart/form-data">
+            <form method="POST" action="{{ url('transaksiKeluar') }}" class="form-horizontal" enctype="multipart/form-data"
+                id="tambah-transaksiKeluar">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Kode</label>

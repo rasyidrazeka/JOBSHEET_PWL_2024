@@ -6,7 +6,7 @@
             <h3 class="card-title">{{ $page->title }}</h3>
             @if (auth()->user()->level_id == 1)
                 <div class="card-tools">
-                    <a class="btn btn-sm btn-warning mt-1" href="{{ url('transaksiMasuk/create') }}">Tambah</a>
+                    <a class="btn btn-sm btn-warning mt-1" href="{{ url('transaksiMasuk/create') }}" id="btn-tambah-transaksiMasuk">Tambah</a>
                 </div>
             @endif
         </div>

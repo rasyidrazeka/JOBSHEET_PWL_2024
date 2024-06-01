@@ -24,7 +24,7 @@ class AdministrasiController extends Controller
         $activeMenu = 'administrasi';
         $level = LevelModel::all();
         $notifBarang = BarangModel::all();
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
         return view('administrasi.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 
@@ -67,9 +67,9 @@ class AdministrasiController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
-        return view('administrasi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
+        return view('administrasi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -112,9 +112,9 @@ class AdministrasiController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
-        return view('administrasi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'user' => $user, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
+        return view('administrasi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'user' => $user, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function edit(string $id)
@@ -136,9 +136,9 @@ class AdministrasiController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
-        return view('administrasi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'user' => $user, 'level' => $level, 'notifBarang' => $notifBarang, 'stokKurang' => $stokKurang, 'activeMenu' => $activeMenu]);
+        return view('administrasi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'user' => $user, 'level' => $level, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, string $id)

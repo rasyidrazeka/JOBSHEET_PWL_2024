@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\LevelController as ApiLevelController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
@@ -112,7 +113,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('manager', ManagerController::class);
     });
 });
-
 
 // Route::get('/user', [UserController::class, 'index']);
 

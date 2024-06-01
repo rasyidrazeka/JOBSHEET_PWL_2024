@@ -14,7 +14,7 @@
                 <a href="{{ url('transaksiMasuk') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
             @else
                 <form method="POST" action="{{ url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id) }}"
-                    class="form-horizontal" enctype="multipart/form-data">
+                    class="form-horizontal" enctype="multipart/form-data" id="edit-transaksiMasuk">
                     @csrf {!! method_field('PUT') !!} <!-- tambahkan baris ini untuk proses edit yang butuh method PUT -->
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Kode</label>
@@ -29,13 +29,14 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Nama Barang</label>
                         <div class="col-11">
-                            <select class="form-control" id="barang_id" name="barang_id" required>
+                            <select class="form-control" id="barang_id" name="barang_id" disabled>
                                 <option value="">- Pilih Barang -</option>
                                 @foreach ($barang as $item)
                                     <option value="{{ $item->barang_id }}" @if ($item->barang_id == $transaksi_masuk->barang_id) selected @endif>
                                         {{ $item->barang_nama }}</option>
                                 @endforeach
                             </select>
+                            <input type="hidden" name="barang_id" value="{{ $transaksi_masuk->barang_id }}">
                             @error('barang_id')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror

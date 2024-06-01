@@ -26,7 +26,7 @@
                 <span class="dropdown-item dropdown-header">Seluruh Notifikasi</span>
                 <div class="dropdown-divider"></div>
                 @forelse ($notifBarang as $item)
-                    @if ($item->volume <= 5)
+                    @if ($item->volume <= 1)
                         <div class="dropdown-item">
                             <div class="col">
                                 <div class="row">

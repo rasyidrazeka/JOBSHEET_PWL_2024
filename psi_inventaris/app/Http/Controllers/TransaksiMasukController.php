@@ -26,7 +26,7 @@ class TransaksiMasukController extends Controller
 
         $barang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         return view('transaksiMasuk.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'notifBarang' => $notifBarang, 'barang' => $barang, 'activeMenu' => $activeMenu]);
     }
@@ -41,9 +41,9 @@ class TransaksiMasukController extends Controller
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addColumn('aksi', function ($transaksi_masuk) { // menambahkan kolom aksi  
                 if (auth()->user()->level_id==1) {
-                    $btn = '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
-                    $btn .= '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
-                    $btn .= '<form class="d-inline-block" method="POST" action="'. url('/transaksiMasuk/'.$transaksi_masuk->transaksiMasuk_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
+                    $btn = '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id).'" class="btn btn-info btn-sm" id="btn-detail"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
+                    $btn .= '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id . '/edit').'" class="btn btn-warning btn-sm" style="color: white" id="btn-edit"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;Edit</a> '; 
+                    $btn .= '<form class="d-inline-block" id="btn-hapus" method="POST" action="'. url('/transaksiMasuk/'.$transaksi_masuk->transaksiMasuk_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;Hapus</button></form>'; 
                 }elseif (auth()->user()->level_id==2) {
                     $btn = '<a href="'.url('/transaksiMasuk/' . $transaksi_masuk->transaksiMasuk_id).'" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;Detail</a> '; 
                 }
@@ -68,7 +68,7 @@ class TransaksiMasukController extends Controller
 
         $barang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         $activeMenu = 'transaksiMasuk';
 
@@ -125,7 +125,7 @@ class TransaksiMasukController extends Controller
 
         $notifBarang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         return view('transaksiMasuk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stokKurang' => $stokKurang, 'transaksi_masuk' => $transaksi_masuk, 'notifBarang' => $notifBarang, 'activeMenu' => $activeMenu]);
     }
@@ -138,7 +138,7 @@ class TransaksiMasukController extends Controller
 
         $barang = BarangModel::all();
 
-        $stokKurang = BarangModel::where('volume', '<=', 5)->get();
+        $stokKurang = BarangModel::where('volume', '<=', 1)->get();
 
         $breadcrumb = (object)[
             'title' => 'Edit Transaksi Masuk',
@@ -158,7 +158,6 @@ class TransaksiMasukController extends Controller
     {
         $request->validate([
             'kode_transaksiMasuk' => 'required|string|min:3|unique:transaksi_masuk,kode_transaksiMasuk,'.$id.',transaksiMasuk_id',
-            'barang_id' => 'required|integer',
             'qty' => 'required|integer',
             'gambar' => 'nullable|file|image|mimes:jpeg,png,jpg|max:2048',
             'tanggal_diterima' => 'required'
@@ -173,11 +172,10 @@ class TransaksiMasukController extends Controller
         if ($request->file('gambar') == "") {
             $transaksi_masuk->update([
                 'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
-                'barang_id' => $id_barang,
                 'qty' => $volume,
                 'tanggal_diterima' => $request->tanggal_diterima
             ]);
-
+    
             if ($vol_old_transaksi<$volume) {
                 BarangModel::find($id_barang)->update([
                     $sisa_volume = $vol_old_transaksi-$volume,
@@ -194,15 +192,14 @@ class TransaksiMasukController extends Controller
             if($request->file('gambar')){
                 $upGambar['gambar'] = $request->file('gambar')->store('img_barang');
             }
-
+    
             $transaksi_masuk->update([
                 'kode_transaksiMasuk' => $request->kode_transaksiMasuk,
-                'barang_id' => $request->barang_id,
                 'qty' => $request->qty,
                 'gambar' => $upGambar['gambar'],
                 'tanggal_diterima' => $request->tanggal_diterima
             ]);
-
+    
             if ($vol_old_transaksi<$volume) {
                 BarangModel::find($id_barang)->update([
                     $sisa_volume = $vol_old_transaksi-$volume,

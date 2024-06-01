@@ -16,13 +16,14 @@
             </div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('transaksiMasuk') }}" class="form-horizontal" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('transaksiMasuk') }}" class="form-horizontal" enctype="multipart/form-data"
+                id="tambah-transaksiMasuk">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Kode</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="kode_transaksiMasuk" name="kode_transaksiMasuk"
-                            value="" required>
+                            value="{{ old('kode_transaksiMasuk') }}" required>
                         @error('kode_transaksiMasuk')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -32,7 +33,7 @@
                     <label class="col-1 control-label col-form-label">Nama Barang</label>
                     <div class="col-11">
                         <select class="form-control" id="barang_id" name="barang_id" required>
-                            <option value="">- Pilih Barang -</option>
+                            <option value="{{ old('barang_id') }}">- Pilih Barang -</option>
                             @foreach ($barang as $item)
                                 <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
                             @endforeach
@@ -45,7 +46,8 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Volume</label>
                     <div class="col-11">
-                        <input type="number" class="form-control" id="qty" name="qty" value="" required>
+                        <input type="number" class="form-control" id="qty" name="qty" value="{{ old('qty') }}"
+                            required>
                         @error('qty')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -59,7 +61,7 @@
                                 <img class="img-preview img-fluid mb-2 col-sm-2">
                             </div>
                             <div class="row">
-                                <input type="file" id="gambar" name="gambar" value="" required
+                                <input type="file" id="gambar" name="gambar" value="{{ old('gambar') }}" required
                                     onchange="previewImage()">
                                 @error('gambar')
                                     <small class="form-text text-danger">{{ $message }}</small>
@@ -72,7 +74,7 @@
                     <label class="col-1 control-label col-form-label">Tanggal Masuk</label>
                     <div class="col-11">
                         <input type="datetime-local" class="form-control" id="tanggal_diterima" name="tanggal_diterima"
-                            value="" required>
+                            value="{{ old('tanggal_diterima') }}" required>
                         @error('tanggal_diterima')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
