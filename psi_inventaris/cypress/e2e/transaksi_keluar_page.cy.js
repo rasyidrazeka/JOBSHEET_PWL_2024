@@ -19,18 +19,21 @@ describe('Pengujian Website PSI | Data Transaksi Keluar', () => {
     it('Cek sistem ketika aktor ingin memilih filter pada table data', () => {
         cy.get('#barang_id').should('be.visible');
         cy.get('#barang_id').select('Steker');
+        cy.wait(2000);
         cy.get('#table_transaksiKeluar tbody tr').should('have.length', 4);
     })
 
     it('Cek sistem ketika aktor ingin memilih option show entries pada table data', () => {
         cy.get('#table_transaksiKeluar_length').should('be.visible');
         cy.get('select[name="table_transaksiKeluar_length"]').select('25');
+        cy.wait(2000);
         cy.get('#table_transaksiKeluar tbody tr').should('have.length.lte', 25);
     })
 
     it('Cek sistem ketika aktor ingin mencari data pada tabel data', () => {
         cy.get('#table_transaksiKeluar_filter').should('be.visible');
         cy.get('#table_transaksiKeluar_filter input').type('UTP');
+        cy.wait(2000);
         cy.get('#table_transaksiKeluar tbody tr').should('have.length', 1);
     })
 
@@ -61,7 +64,7 @@ describe('Pengujian Website PSI | Data Transaksi Keluar', () => {
 
     it('Cek sistem ketika aktor ingin menampilkan detail data', () => {
         cy.get('a.page-link').contains('4').click();
-        cy.wait(2000)
+        cy.wait(2000);
         cy.get('table#table_transaksiKeluar').should('be.visible');
         cy.get('table#table_transaksiKeluar tbody tr').eq(9).find('#btn-detail').click();
         cy.get('h1').should('contain', 'Detail Transaksi Keluar');
@@ -69,7 +72,7 @@ describe('Pengujian Website PSI | Data Transaksi Keluar', () => {
 
     it('Cek sistem ketika aktor ingin mengubah data', () => {
         cy.get('a.page-link').contains('4').click();
-        cy.wait(2000)
+        cy.wait(2000);
         cy.get('table#table_transaksiKeluar').should('be.visible');
         cy.get('table#table_transaksiKeluar tbody tr').eq(9).find('#btn-edit').click();
         cy.get('h1').should('contain', 'Edit Transaksi Keluar');
@@ -98,7 +101,7 @@ describe('Pengujian Website PSI | Data Transaksi Keluar', () => {
 
     it('Cek sistem ketika aktor ingin menghapus data', () => {
         cy.get('a.page-link').contains('4').click();
-        cy.wait(2000)
+        cy.wait(2000);
         cy.get('table#table_transaksiKeluar').should('be.visible');
         cy.get('table#table_transaksiKeluar tbody tr').eq(9).find('#btn-hapus').click();
         cy.url().should('include', '/transaksiKeluar');

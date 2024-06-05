@@ -20,12 +20,14 @@ describe('Pengujian Website PSI | Data Barang', () => {
     it('Cek sistem ketika aktor ingin memilih show entries pada table data', () => {
         cy.get('#table_barang_length').should('be.visible');
         cy.get('select[name="table_barang_length"]').select('25');
+        cy.wait(2000);
         cy.get('#table_barang tbody tr').should('have.length.lte', 25);
     })
 
     it('Cek sistem ketika aktor ingin mencari data pada tabel data', () => {
         cy.get('#table_barang_filter').should('be.visible');
         cy.get('#table_barang_filter input').type('UTP');
+        cy.wait(2000);
         cy.get('#table_barang tbody tr').should('have.length', 1);
     })
 
@@ -57,7 +59,7 @@ describe('Pengujian Website PSI | Data Barang', () => {
 
     it('Cek sistem ketika aktor ingin menampilkan detail data', () => {
         cy.get('a.page-link').contains('2').click();
-        cy.wait(5000)
+        cy.wait(2000);
         cy.get('table#table_barang').should('be.visible');
         cy.get('table#table_barang tbody tr').eq(7).find('#btn-detail').click();
         cy.get('h1').should('contain', 'Detail Barang');
@@ -65,7 +67,7 @@ describe('Pengujian Website PSI | Data Barang', () => {
 
     it('Cek sistem ketika aktor ingin mengubah data', () => {
         cy.get('a.page-link').contains('2').click();
-        cy.wait(5000)
+        cy.wait(2000);
         cy.get('table#table_barang').should('be.visible');
         cy.get('table#table_barang tbody tr').eq(7).find('#btn-edit').click();
         cy.get('h1').should('contain', 'Edit Barang');
@@ -92,7 +94,7 @@ describe('Pengujian Website PSI | Data Barang', () => {
 
     it('Cek sistem ketika aktor ingin menghapus data', () => {
         cy.get('a.page-link').contains('2').click();
-        cy.wait(5000)
+        cy.wait(2000);
         cy.get('table#table_barang').should('be.visible');
         cy.get('table#table_barang tbody tr').eq(7).find('#btn-hapus').click();
         cy.url().should('include', '/barang');

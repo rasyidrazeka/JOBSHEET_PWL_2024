@@ -22,6 +22,7 @@ describe('Pengujian Website PSI | Pelaporan Bulanan', () => {
         cy.get('#tahun').should('be.visible');
         cy.get('#tahun').select('2023');
         cy.get('#tampilkan').click();
+        cy.wait(2000);
         cy.get('#table_pelaporan tbody tr').should('have.length', 17);
     })
 });

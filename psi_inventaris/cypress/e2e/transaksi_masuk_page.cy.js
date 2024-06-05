@@ -13,25 +13,28 @@ describe('Pengujian Website PSI | Data Transaksi Masuk', () => {
 
         cy.get('.main-sidebar').should('be.visible');
         cy.get('#side-transaksiMasuk').click(); // Ganti dengan selector sidebar administrasi
-        cy.url().should('include', '/transaksiMasuk'); // Ubah sesuai dengan URL halaman administrasi
+        cy.url().should('include', '/transaksiMasuk'); // Ubah sesuai dengan URL halaman transaksi masuk
         cy.get('h1').should('contain', 'Daftar Transaksi Masuk');
     });
 
     it('Cek sistem ketika aktor ingin memilih filter pada table data', () => {
         cy.get('#barang_id').should('be.visible');
         cy.get('#barang_id').select('Kabel UTP Belden Cat 6');
+        cy.wait(2000);
         cy.get('#table_transaksiMasuk tbody tr').should('have.length', 1);
     })
 
     it('Cek sistem ketika aktor ingin memilih option show entries pada table data', () => {
         cy.get('#table_transaksiMasuk_length.dataTables_length').should('be.visible');
         cy.get('select[name="table_transaksiMasuk_length"]').select('25');
+        cy.wait(2000);
         cy.get('#table_transaksiMasuk tbody tr').should('have.length.lte', 25);
     })
 
     it('Cek sistem ketika aktor ingin mencari data pada tabel data', () => {
         cy.get('#table_transaksiMasuk_filter').should('be.visible');
         cy.get('#table_transaksiMasuk_filter input').type('UTP');
+        cy.wait(2000);
         cy.get('#table_transaksiMasuk tbody tr').should('have.length', 1);
     })
 
@@ -62,7 +65,7 @@ describe('Pengujian Website PSI | Data Transaksi Masuk', () => {
 
     it('Cek sistem ketika aktor ingin menampilkan detail data', () => {
         cy.get('a.page-link').contains('2').click();
-        cy.wait(5000)
+        cy.wait(2000);
         cy.get('table#table_transaksiMasuk').should('be.visible');
         cy.get('table#table_transaksiMasuk tbody tr').eq(7).find('#btn-detail').click();
         cy.get('h1').should('contain', 'Detail Transaksi Masuk');
@@ -70,7 +73,7 @@ describe('Pengujian Website PSI | Data Transaksi Masuk', () => {
 
     it('Cek sistem ketika aktor ingin mengubah data', () => {
         cy.get('a.page-link').contains('2').click();
-        cy.wait(5000)
+        cy.wait(2000);
         cy.get('table#table_transaksiMasuk').should('be.visible');
         cy.get('table#table_transaksiMasuk tbody tr').eq(7).find('#btn-edit').click();
         cy.get('h1').should('contain', 'Edit Transaksi Masuk');
@@ -101,7 +104,7 @@ describe('Pengujian Website PSI | Data Transaksi Masuk', () => {
 
     it('Cek sistem ketika aktor ingin menghapus data', () => {
         cy.get('a.page-link').contains('2').click();
-        cy.wait(5000)
+        cy.wait(2000);
         cy.get('table#table_transaksiMasuk').should('be.visible');
         cy.get('table#table_transaksiMasuk tbody tr').eq(7).find('#btn-hapus').click();
         cy.url().should('include', '/transaksiMasuk');

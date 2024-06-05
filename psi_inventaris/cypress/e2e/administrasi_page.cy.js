@@ -19,19 +19,22 @@ describe('Pengujian Website PSI | Administrasi', () => {
 
     it('Cek sistem ketika aktor ingin memilih filter pada table data', () => {
         cy.get('#level_id').should('be.visible');
-        cy.get('#level_id').select('1');
-        cy.get('#table_administrasi tbody tr').should('have.length', 2);
+        cy.get('#level_id').select('2');
+        cy.wait(2000);
+        cy.get('#table_administrasi tbody tr').should('have.length', 1);
     })
 
     it('Cek sistem ketika aktor ingin memilih option show entries pada table data', () => {
         cy.get('#table_administrasi_length').should('be.visible');
         cy.get('select[name="table_administrasi_length"]').select('25');
+        cy.wait(2000);
         cy.get('#table_administrasi tbody tr').should('have.length.lte', 25);
     })
 
     it('Cek sistem ketika aktor ingin mencari data pada tabel data', () => {
         cy.get('#table_administrasi_filter').should('be.visible');
         cy.get('#table_administrasi_filter input').type('widya');
+        cy.wait(2000);
         cy.get('#table_administrasi tbody tr').should('have.length', 1);
     })
 
