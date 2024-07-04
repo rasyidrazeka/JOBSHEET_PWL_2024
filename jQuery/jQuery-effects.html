@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Effects</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      .box {
+        background: #98bf21;
+        height: 100px;
+        width: 100px;
+        position: relative;
+        top: 50px;
+        margin: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <!-- contoh penerapan animasi fade : fade-in -->
+          <h1>Animasi Fade In</h1>
+          <button id="btn-fade-in">Fade In</button>
+          <p id="p-fade-in" style="display: none">Coba efek fade in</p>
+        </div>
+        <div class="col">
+          <!-- contoh penerapan animasi fade : fade-out -->
+          <h1>Animasi Fade Out</h1>
+          <button id="btn-fade-out">Fade Out</button>
+          <p id="p-fade-out">Coba efek fade out</p>
+        </div>
+        <div class="col">
+          <!-- contoh penerapan animasi fade : fade-to -->
+          <h1>Animasi Fade To</h1>
+          <button id="btn-fade-to-out">Fade To 0.4</button>
+          <button id="btn-fade-to-in">Fade To 1</button>
+          <p id="p-fade-to">Coba efek fade to</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <!-- contoh penerapan animasi fade : fade-toggle -->
+          <h1>Animasi Fade Toggle</h1>
+          <button id="btn-fade-toggle">Fade Toggle</button>
+          <p id="p-fade-toggle">Coba efek fade toggle</p>
+        </div>
+        <div class="col">
+          <!-- contoh penerapan animasi show -->
+          <h1>Animasi Show</h1>
+          <button id="btn-show">Show</button>
+          <p id="p-show" style="display: none">Coba Efek Show</p>
+        </div>
+        <div class="col">
+          <!-- contoh penerapan animasi hide -->
+          <h1>Animasi Hide</h1>
+          <button class="btn-hide">Hide</button>
+          <p class="p-hide">Coba efek hide</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <!-- contoh penerapan animasi toggle -->
+          <h1>Animasi Toggle</h1>
+          <button class="btn-toggle">Toggle</button>
+          <p class="p-toggle">Coba efek toggle</p>
+        </div>
+        <div class="col">
+          <!-- contoh penerapan animasi slide up -->
+          <h1>Animasi Slide Up</h1>
+          <button class="btn-slide-up">Slide Up</button>
+          <p class="p-slide-up">Coba efek Slide Up</p>
+        </div>
+        <div class="col">
+          <!-- contoh penerapan animasi slide down -->
+          <h1>Animasi Slide Down</h1>
+          <button class="btn-slide-down">Slide Down</button>
+          <p class="p-slide-down" style="display: none">Coba efek Slide Down</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <!-- contoh penerapan animasi slide toggle -->
+          <h1>Animasi Slide Toggle</h1>
+          <button class="btn-slide-toggle">Slide Toggle</button>
+          <p class="p-slide-toggle" style="display: none">
+            Coba efek Slide Toggle
+          </p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <!-- contoh implementasi animate -->
+    <h1>Implementasi Animate</h1>
+    <button class="btn-animate">Animate!</button>
+    <div class="box"></div>
+
+    <script>
+      // script animasi fade : fade-in
+      $("#btn-fade-in").click(function () {
+        $("#p-fade-in").fadeIn(1000, "linear", function () {
+          alert("Teks sudah muncul");
+        });
+      });
+
+      // script animasi fade : fade-out
+      $("#btn-fade-out").click(function () {
+        $("#p-fade-out").fadeOut(1000, "linear", function () {
+          alert("Teks sudah disembunyikan");
+        });
+      });
+
+      // script animasi fade : fade-to
+      $("#btn-fade-to-out").click(function () {
+        $("#p-fade-to").fadeTo(1000, 0.4, "linear", function () {
+          alert("Teks sudah dikurangi opacitynya");
+        });
+      });
+      $("#btn-fade-to-in").click(function () {
+        $("#p-fade-to").fadeTo(1000, 1, "linear", function () {
+          alert("Teks sudah ditambah opacitynya");
+        });
+      });
+
+      // script animasi fade : fade-toggle
+      $("#btn-fade-toggle").click(function () {
+        $("#p-fade-toggle").fadeToggle(1000, "linear");
+      });
+
+      // script animasi show
+      $("#btn-show").click(function () {
+        $("#p-show").show(500, "linear", function () {
+          alert("Teks sudah muncul");
+        });
+      });
+
+      // script animasi hide
+      $(".btn-hide").click(function () {
+        $(".p-hide").hide();
+      });
+
+      // script animasi toggle
+      $(".btn-toggle").click(function () {
+        $(".p-toggle").toggle();
+      });
+
+      // script animasi slide up
+      $(".btn-slide-up").click(function () {
+        $(".p-slide-up").slideUp(500, "linear");
+      });
+
+      // script animasi slide down
+      $(".btn-slide-down").click(function () {
+        $(".p-slide-down").slideDown(500, "linear");
+      });
+
+      // script animasi slide toggle
+      $(".btn-slide-toggle").click(function () {
+        $(".p-slide-toggle").slideToggle(500, "linear");
+      });
+
+      // script implementasi animate
+      $(".btn-animate").click(function () {
+        $(".box").animate(
+          {
+            top: 0,
+          },
+          500,
+          "linear"
+        );
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

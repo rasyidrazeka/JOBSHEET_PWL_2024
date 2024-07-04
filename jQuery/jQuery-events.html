@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery | Events</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <h1>Events Mouse</h1>
+    <button class="events-click">events - click</button>
+    <button class="events-dblclick">events - dblclick</button>
+    <button class="events-mouseEnter">events - mouseEnter</button>
+    <button class="events-mouseLeave">events - mouseLeave</button>
+    <h1>Event Keyboard</h1>
+    <input class="events-keypress" placeholder="events - keypress" />
+    <input class="events-keydown" placeholder="events - keydown" />
+    <input class="events-keyup" placeholder="events - keyup" />
+    <h1>Event Submit</h1>
+    <form action="https://www.google.com/" class="events-submit">
+      <input type="text" placeholder="Masukkan nama anda" />
+      <button type="submit">events - submit</button>
+    </form>
+    <br />
+    <form action="https://www.google.com/" class="events-submitmodifier">
+      <input
+        type="text"
+        placeholder="Masukkan nama anda"
+        class="input-submitmodifier"
+      />
+      <button type="submit">events - submit modifier</button>
+    </form>
+    <br />
+    <select class="events-change">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+    <script>
+      $(".events-dblclick").dblclick(function () {
+        alert("kamu menakanku 2x!");
+      });
+
+      $(".events-click").click(function () {
+        alert("kamu menekanku!");
+      });
+
+      $(".events-mouseEnter").mouseenter(function () {
+        alert("kamu melewati tombol!");
+      });
+
+      $(".events-mouseLeave").mouseleave(function () {
+        alert("kamu menjauhi tombol");
+      });
+
+      $(".events-keypress").keypress(function () {
+        console.log("events - keypress");
+      });
+
+      $(".events-keydown").keydown(function () {
+        console.log("events - keydown");
+      });
+
+      $(".events-keyup").keyup(function () {
+        console.log("events - keyup");
+      });
+
+      $(".events-submit").submit(function () {
+        alert("form terkirim!");
+      });
+
+      $(".events-submitmodifier").submit(function (e) {
+        e.preventDefault();
+        if ($(".input-submitmodifier").val() == "") {
+          alert("Data yang dimasukkan belum lengkap!");
+        } else {
+          e.currentTarget.submit();
+        }
+      });
+      $(".events-change").change(function (e) {
+        console.log(e.currentTarget.value);
+      });
+    </script>
+  </body>
+</html>

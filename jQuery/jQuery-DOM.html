@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery | DOM</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <!-- Contoh penerapan method addClass() -->
+          <h1>Method addClass()</h1>
+          <button class="btn-addClass btn btn-primary">Add Class</button>
+          <p class="p-addClass">Aku akan berubah warna</p>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan methode removeClass() -->
+          <h1>Method removeClass()</h1>
+          <button class="btn btn-primary btn-removeClass">Remove Class</button>
+          <p class="text-red p-removeClass">aku akan berubah warna</p>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan methode chaining : addClass() + removeClass() -->
+          <h1>Method Chaining</h1>
+          <button class="btn btn-primary btn-chaining">Chaining</button>
+          <p class="text-red p-chaining">
+            Aku akan berubah warna dan bergaris bawah
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <!-- Contoh penerapan method hasClass() -->
+          <h1>Method hasClass()</h1>
+          <button class="btn-hasClass btn btn-primary">Cek Class</button>
+          <p class="text-red p-hasClass">apakah memiliki class text-red?</p>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan method text() sebagai getter -->
+          <h1>Method text() getter</h1>
+          <button class="btn btn-primary btn-text-getter">text() getter</button>
+          <div class="box-text-getter">Teks ini akan di ambil ke alert</div>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan method text() sebagai setter -->
+          <h1>Method text() setter</h1>
+          <button class="btn btn-primary btn-text-setter">text() setter</button>
+          <div class="box-text-setter"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <!-- Contoh penerapan method html() sebagai setter -->
+          <h1>Method html() setter</h1>
+          <button class="btn btn-primary btn-html-setter">
+            Method html() setter
+          </button>
+          <div class="box-html-setter"></div>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan method html() sebagai getter -->
+          <h1>Method html() getter</h1>
+          <button class="btn btn-primary btn-html-getter">
+            Method html() getter
+          </button>
+          <div class="box-html-getter">
+            <h3>h3 : isi dari box</h3>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan method append() -->
+          <h1>Method append()</h1>
+          <button class="btn btn-primary btn-append">Append</button>
+          <div class="container-append">
+            <div class="inner">Berikut merupakan</div>
+            <div class="inner">contoh dari</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <!-- Contoh penerapan method prepend() -->
+          <h1>Method prepend()</h1>
+          <button class="btn btn-primary btn-prepend">Prepend</button>
+          <div class="container-prepend">
+            <div class="inner">Diatas akan ditambah</div>
+            <div class="inner">dengan prepend</div>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Contoh penerapan method remove() -->
+          <h1>Method remove()</h1>
+          <button class="btn btn-primary btn-remove">remove()</button>
+          <div class="inner-1-remove">ABRAKADABRA!!!</div>
+          <div class="inner-2-remove">Tulisan diatas akan hilang</div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .text-red {
+        color: red;
+      }
+      .text-underline {
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      // script method addClass()
+      $(".btn-addClass").click(function () {
+        $(".p-addClass").addClass("text-red");
+      });
+      // script method removeClass()
+      $(".btn-removeClass").click(function () {
+        $(".p-removeClass").removeClass("text-red");
+      });
+      // script method chaining
+      $(".btn-chaining").click(function () {
+        $(".p-chaining").removeClass("text-red").addClass("text-underline");
+      });
+      // script method hasClass()
+      $(".btn-hasClass").click(function () {
+        alert($(".p-hasClass").hasClass("text-red"));
+      });
+      // script method text() getter
+      $(".btn-text-getter").click(function () {
+        alert($(".box-text-getter").text());
+      });
+      // script method text() setter
+      $(".btn-text-setter").click(function () {
+        $(".box-text-setter").text("teks ini ditambahkan ke div");
+      });
+      // script methode html() setter
+      $(".btn-html-setter").click(function () {
+        $(".box-html-setter").html("<h3>h3 ditambahkan ke div</h3>");
+      });
+      // script methode html() getter
+      $(".btn-html-getter").click(function () {
+        alert($(".box-html-getter").html());
+      });
+      //script method append()
+      $(".btn-append").click(function () {
+        $(".container-append").append('<div class="inner">method append</div>');
+      });
+      // script method prepend()
+      $(".btn-prepend").click(function () {
+        $(".container-prepend").prepend('<div class="inner">HALOOOO!</div>');
+      });
+      // script method remove()
+      $(".btn-remove").click(function () {
+        $(".inner-1-remove").remove();
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
