@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>instanceVue</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Contoh Binding Dua Arah</h2>
+      <p>{{message}}</p>
+      <!-- Penerapan data binding dua arah -->
+      <input type="text" v-model="message" />
+      <!-- Data binding pada input checkbox -->
+      <h2>Data Binding Input Checkbox</h2>
+      <input type="checkbox" v-model="checked" />
+      <span>{{checked}}</span>
+      <!-- Data binding jika input checkbox menggunakan string -->
+      <h2>Data Binding Input Checkbox String</h2>
+      <p>Nama yang dipilih : {{checkedCustom}}</p>
+      <div>
+        <input type="checkbox" value="Rasyid" v-model="checkedCustom" />
+        <span>Rasyid</span>
+      </div>
+      <div>
+        <input type="checkbox" value="Razeka" v-model="checkedCustom" />
+        <span>Razeka</span>
+      </div>
+      <!-- Data binding pada input radio -->
+      <h2>Data Binding Pada Input Radio</h2>
+      <p>Inputan yang dipilih : {{pilihan}}</p>
+      <div>
+        <input type="radio" value="A" v-model="pilihan" />
+        <span>A</span>
+      </div>
+      <div>
+        <input type="radio" value="B" v-model="pilihan" />
+        <span>B</span>
+      </div>
+      <!-- Data binding pada input select -->
+      <h2>Data Binding Pada Input Select</h2>
+      <p>Pilihan kota favoritmu : {{pilihanKota}}</p>
+      <select v-model="pilihanKota">
+        <option disabled value="">Pilih kota favoritmu</option>
+        <option>Kediri</option>
+        <option>Malang</option>
+        <option>Surabaya</option>
+      </select>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            message: "Halo Gamelab",
+            checked: false,
+            checkedCustom: [],
+            pilihan: "",
+            pilihanKota: "",
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

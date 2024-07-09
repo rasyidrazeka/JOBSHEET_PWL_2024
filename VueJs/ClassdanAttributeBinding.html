@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class dan Attribute Binding</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <style>
+      .text-danger {
+        color: red;
+      }
+      .text-underline {
+        text-decoration: underline;
+      }
+    </style>
+    <div id="app">
+      <!-- Penggunaan single class binding -->
+      <h2>Single Class Binding</h2>
+      <p :class="textDanger">Aku akan berwarna merah</p>
+      <!-- Penggunaan multiple class binding -->
+      <h2>Multiple Class Binding</h2>
+      <p :class="[textDanger, textUnderline]">Aku akan berwarna merah</p>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            textDanger: "text-danger",
+            textUnderline: "text-underline",
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

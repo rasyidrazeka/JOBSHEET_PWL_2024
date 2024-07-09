@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Looping VueJS</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Penerapan perulangan terhadap array -->
+      <h2>Perulangan Terhadap Array</h2>
+      <h3>Daftar nama teman-temanku :</h3>
+      <p v-for="friend in friends">{{friend}}</p>
+      <!-- Menampilkan nilai index pada array -->
+      <h2>Menampilkan Nilai Indexnya</h2>
+      <h3>Daftar nama teman-temanku :</h3>
+      <p v-for="(friend, index) in friends">{{index+1}}. {{friend}}</p>
+      <!-- Penerapan perulangan terhadap object -->
+      <h2>Perulangan Terhadap Object</h2>
+      <p v-for="value in character">{{value}}</p>
+      <!-- Menampilkan key property name pada object -->
+      <h2>Perulangan Terhadap Object Menggunakan key</h2>
+      <p v-for="(value, key) in character">{{key}} : {{value}}</p>
+      <!-- Menampilkan nilai index pada object -->
+      <h2>Perulangan Terhadap Object Menggunakan index dan key</h2>
+      <p v-for="(value, key, index) in character">
+        {{index+1}}) {{key}} : {{value}} <br />
+      </p>
+      <!-- Penerapan perulangan dengan rentang nilai (range) -->
+      <h2>Perulangan Dengan Rentang Nilai (Range)</h2>
+      <p v-for="i in 5">Perulangan ke-{{i}}</p>
+      <!-- Penulisan v-for pada template -->
+      <h2>Penulisan v-for Menggunakan Template</h2>
+      <ul style="list-style: none">
+        <template v-for="i in 5">
+          <li>Perulangan ke-{{i}}</li>
+          <hr />
+        </template>
+      </ul>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            friends: ["Wisang", "Bangkit", "Hendra", "Rizam"],
+            character: {
+              nama: "Rasyid",
+              usia: 21,
+              hobi: "makan",
+            },
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

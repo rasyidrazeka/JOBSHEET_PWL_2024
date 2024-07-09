@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conditional Rendering</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Contoh penggunaan v-if -->
+      <h2>Conditional Rendering : v-if</h2>
+      <template v-if="siang">
+        <h4>Kegiatanku di siang hari :</h4>
+        <ol>
+          <li>Mandi</li>
+          <li>Makan</li>
+          <li>Belajar Ngoding</li>
+        </ol>
+      </template>
+      <!-- Contoh penggunaan v-else -->
+      <template v-else>
+        <h4>Kegiatanku di malam hari</h4>
+        <ol>
+          <li>Tidur</li>
+          <li>Rebahan</li>
+        </ol>
+      </template>
+      <!-- Contoh penggunaan v-else-if -->
+      <h2>Conditional Rendering : v-else-if</h2>
+      <p v-if="nilai>90">Super!</p>
+      <p v-else-if="nilai>=75">Hebat!</p>
+      <p v-else>Belajar lebih giat!</p>
+      <!-- Contoh penggunaan v-show -->
+      <h2>Conditional Rendering : v-show</h2>
+      <p v-show="siang">☀️</p>
+      <!-- Contoh penggunaan multiple v-show -->
+      <h2>Conditional Rendering : Multiple v-show</h2>
+      <p v-show="siang">☀️</p>
+      <p v-show="siang==false">🌙</p>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            siang: true,
+            nilai: 92,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
